@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar-admin',
@@ -10,23 +9,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar-admin.component.css']
 })
 export class NavbarAdminComponent {
-  menuAbierto = false;
 
-  constructor(private router: Router) {}
+  menuAbierto = false;
 
   toggleMenu() {
     this.menuAbierto = !this.menuAbierto;
   }
 
-  navegar(seccion: string | string[]) {
+  /** 🔹 Enviar evento al dashboard para cambiar de sección interna */
+  navegarInterno(seccion: string) {
     this.menuAbierto = false;
-    this.router.navigate(Array.isArray(seccion) ? seccion : [seccion]);
-  }
-  
 
+    window.dispatchEvent(
+      new CustomEvent('admin-navegacion', { detail: seccion })
+    );
+  }
+
+  /** 🔹 Cerrar sesión */
   cerrarSesion() {
     if (confirm('¿Deseas cerrar sesión?')) {
-      this.router.navigate(['/auth/login']);
+      window.location.href = '/auth/login';
     }
   }
 }

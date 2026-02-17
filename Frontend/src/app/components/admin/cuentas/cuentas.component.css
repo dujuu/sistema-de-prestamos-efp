@@ -9,7 +9,6 @@
   padding: 0 40px;
 }
 
-
 /* ============================================
    PANEL IZQUIERDO (LISTA)
 ============================================ */
@@ -35,26 +34,26 @@
   margin: 0;
   font-size: 1.3rem;
   font-weight: 700;
-  color: #2b478b;
+  color: #1b5e20; /* verde oscuro */
 }
 
 /* Botón Crear cuenta */
 .lista button {
-  background: #446ba9;
-  color: white;
+  background: #2f7d32; /* verde principal */
+  color: #ffffff;
   padding: 9px 20px;
   border-radius: 12px;
   border: none;
   cursor: pointer;
   font-size: 0.9rem;
   transition: 0.25s;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
 .lista button:hover {
-  background: #365a8f;
+  background: #1b5e20;
   transform: translateY(-2px);
 }
-
 
 /* Buscador */
 .buscador {
@@ -62,7 +61,14 @@
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid #cfd4dd;
-  background: #f9fbff;
+  background: #f3faf4; /* verde muy suave */
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buscador:focus {
+  border-color: rgba(76, 175, 80, 0.8);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
 }
 
 /* Ítems de alumnos */
@@ -76,8 +82,8 @@
 }
 
 .item:hover {
-  background: #eef2ff;
-  border-color: #446ba9;
+  background: #e8f5e9; /* verde suave */
+  border-color: rgba(76, 175, 80, 0.55);
 }
 
 .item strong {
@@ -91,6 +97,11 @@
   color: #555;
 }
 
+/* (Opcional) Si tienes clase activo en HTML */
+.item.activo {
+  background: #e8f5e9;
+  border-color: #4caf50;
+}
 
 /* ============================================
    PANEL DERECHO (DETALLE DEL ALUMNO)
@@ -100,7 +111,7 @@
   padding: 30px 35px;
   border-radius: 18px;
   border: 1px solid #e6e9f0;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -110,11 +121,10 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2b478b;
+  color: #1b5e20; /* verde oscuro */
 }
 
-
-/* GRID de datos */
+/* Grid de datos */
 .detalle input {
   width: 100%;
 }
@@ -129,19 +139,25 @@
 /* Inputs bonitos */
 .detalle input,
 .detalle p {
-  background: #f7f9ff;
-  border: 1px solid #d7ddee;
+  background: #f3faf4; /* verde suave */
+  border: 1px solid #d7e7da;
   padding: 12px 16px;
   border-radius: 12px;
   font-size: 0.95rem;
   color: #374151;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.detalle input:focus {
+  border-color: rgba(76, 175, 80, 0.85);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+}
 
 /* Botón Editar datos */
 .detalle button {
-  background: #446ba9;
-  color: white;
+  background: #2f7d32; /* verde principal */
+  color: #ffffff;
   padding: 12px 22px;
   border: none;
   border-radius: 12px;
@@ -150,9 +166,28 @@
   cursor: pointer;
   transition: 0.25s;
   font-weight: 600;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
 .detalle button:hover {
-  background: #365a8f;
+  background: #1b5e20;
   transform: translateY(-3px);
+}
+
+/* ============================================
+   RESPONSIVE
+============================================ */
+@media (max-width: 992px) {
+  .cuentas-container {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+
+  .detalle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detalle button {
+    width: 100%;
+  }
 }

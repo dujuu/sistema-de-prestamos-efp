@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(180deg, #f9faff 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #f4fbf6 0%, #ffffff 100%);
   font-family: "Poppins", sans-serif;
   overflow: hidden;
 }
@@ -26,9 +26,9 @@
   position: relative;
   z-index: 1;
   background: #ffffff;
-  border: 1px solid #dbe5f1;
+  border: 1px solid #d4e6d8;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(75, 108, 183, 0.15);
+  box-shadow: 0 8px 24px rgba(47, 125, 50, 0.18);
   padding: 3rem 2.5rem;
   width: 100%;
   max-width: 480px;
@@ -37,33 +37,33 @@
 
 /* === ENCABEZADO === */
 .recuperar-header h1 {
-  color: #4b6cb7;
+  color: #1b5e20;
   font-weight: 800;
   font-size: 1.9rem;
   margin-bottom: 0.5rem;
 }
 
 .recuperar-header .sub {
-  color: #6e7fa8;
+  color: #6b7280;
   font-size: 0.95rem;
   margin-bottom: 1.8rem;
 }
 
 .icono-header {
   font-size: 2.5rem;
-  color: #4b6cb7;
+  color: #2f7d32;
   margin-bottom: 1rem;
 }
 
 /* === CUADRO INFORMATIVO === */
 .recuperar-info {
-  background: linear-gradient(135deg, #5a79ff 0%, #91b5e8 100%);
+  background: linear-gradient(135deg, #2f7d32 0%, #66bb6a 100%);
   border-radius: 14px;
   padding: 1.5rem 1.2rem;
   color: white;
   text-align: center;
   margin-bottom: 1.8rem;
-  box-shadow: 0 4px 14px rgba(90, 121, 255, 0.2);
+  box-shadow: 0 4px 14px rgba(47, 125, 50, 0.25);
   animation: slideUp 0.6s ease both;
 }
 
@@ -82,38 +82,39 @@
 /* === FORMULARIO === */
 .form-label {
   font-weight: 600;
-  color: #4b6cb7;
+  color: #1b5e20;
   font-size: 0.9rem;
   margin-bottom: 0.4rem;
 }
 
 .form-control {
-  border: 1px solid #c9d8f0;
+  border: 1px solid #cfe3d3;
   border-radius: 10px;
   padding: 0.7rem 0.9rem;
   transition: border-color 0.25s, box-shadow 0.25s;
+  background: #f9fbfa;
 }
 
 .form-control:focus {
-  border-color: #4b6cb7;
-  box-shadow: 0 0 6px rgba(75, 108, 183, 0.25);
+  border-color: #2f7d32;
+  box-shadow: 0 0 6px rgba(47, 125, 50, 0.25);
   outline: none;
 }
 
 /* === BOTÓN === */
 .btn-recuperar {
-  background-color: #4b6cb7;
+  background-color: #2f7d32;
   border: none;
   font-weight: 700;
   padding: 0.8rem;
   border-radius: 10px;
   transition: background 0.25s, transform 0.15s;
   width: 100%;
-  margin-top: 1rem; /* 🔹 separa el botón del input */
+  margin-top: 1rem;
 }
 
 .btn-recuperar:hover {
-  background-color: #39589a;
+  background-color: #1b5e20;
   transform: translateY(-2px);
 }
 
@@ -128,14 +129,14 @@
 }
 
 .volver {
-  color: #4b6cb7;
+  color: #2f7d32;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s;
 }
 
 .volver:hover {
-  color: #2f4abf;
+  color: #1b5e20;
   text-decoration: underline;
 }
 
@@ -182,6 +183,6 @@
   }
 
   .btn-recuperar {
-    margin-top: 1.2rem; /* Un poco más de aire en pantallas pequeñas */
+    margin-top: 1.2rem;
   }
 }

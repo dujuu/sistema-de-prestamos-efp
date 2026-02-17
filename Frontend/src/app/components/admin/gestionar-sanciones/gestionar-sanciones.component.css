@@ -6,7 +6,7 @@
   margin-top: 25px;
   font-size: 2rem;
   font-weight: 700;
-  color: #2b478b;
+  color: #1b5e20; /* VERDE */
 }
 
 .subtitulo-pagina {
@@ -54,12 +54,12 @@
   margin: 0;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #2b478b;
+  color: #1b5e20; /* VERDE */
 }
 
 .btn-crear {
   padding: 8px 16px;
-  background: #446ba9;
+  background: #2f7d32; /* VERDE */
   color: white;
   border-radius: 8px;
   border: none;
@@ -69,7 +69,7 @@
 }
 
 .btn-crear:hover {
-  background: #365a8f;
+  background: #1b5e20;
   transform: translateY(-2px);
 }
 
@@ -77,7 +77,7 @@
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #cfe3d3;
   margin-bottom: 16px;
 }
 
@@ -87,7 +87,7 @@
 .item {
   padding: 16px 18px;
   border-radius: 14px;
-  background: #f8fafc;
+  background: #f9fafb;
   border: 1px solid #e1e4eb;
   cursor: pointer;
   transition: 0.25s;
@@ -95,13 +95,13 @@
 }
 
 .item:hover {
-  background: #eef2ff;
-  border-color: #446ba9;
+  background: #e8f5e9; /* VERDE CLARO */
+  border-color: #4caf50;
 }
 
 .item.activo {
-  border-color: #446ba9;
-  background: #e9efff;
+  border-color: #2f7d32;
+  background: #e8f5e9;
 }
 
 .estado {
@@ -111,7 +111,7 @@
 }
 
 .estado.activa {
-  color: #d9534f;
+  color: #e53935; /* ROJO SE MANTIENE */
 }
 
 /* ========================
@@ -128,7 +128,7 @@
 .detalle h2 {
   font-size: 1.35rem;
   font-weight: 700;
-  color: #2b478b;
+  color: #1b5e20; /* VERDE */
   margin-bottom: 20px;
 }
 
@@ -156,15 +156,17 @@
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #cfe3d3;
   font-size: 0.95rem;
   margin-top: 5px;
   background: #f9fafb;
 }
 
-/* BOTONES */
+/* ========================
+   BOTONES
+========================= */
 .btn-azul {
-  background: #446ba9;
+  background: #2f7d32; /* VERDE */
   border: none;
   padding: 10px 18px;
   border-radius: 10px;
@@ -175,7 +177,7 @@
 }
 
 .btn-azul:hover {
-  background: #365a8f;
+  background: #1b5e20;
 }
 
 .btn-rojo {
@@ -223,7 +225,7 @@
   margin-top: 5px;
   padding: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #cfe3d3;
 }
 
 .modal-acciones {
@@ -233,13 +235,15 @@
   justify-content: flex-end;
 }
 
-
+/* ========================
+   NAVBAR FIX
+========================= */
 app-navbar-admin {
   position: relative;
-  z-index: 1000; /* Lo trae al frente */
+  z-index: 1000;
 }
 
 .cuentas-container {
   position: relative;
-  z-index: 1; /* Evita que tape al navbar */
+  z-index: 1;
 }

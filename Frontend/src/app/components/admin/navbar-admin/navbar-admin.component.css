@@ -1,8 +1,8 @@
-/* ======== NAVBAR GENERAL ======== */
+/* ======== NAVBAR GENERAL (ADMIN - VERDE) ======== */
 .navbar-admin {
   width: 100%;
   height: 130px;
-  background-color: #446BA9; /* Azul institucional */
+  background-color: #2f7d32; /* Verde informática */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,8 +10,8 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.25);
-  border-bottom: 2px solid rgba(145, 181, 232, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border-bottom: 2px solid rgba(76, 175, 80, 0.35);
   font-family: "Poppins", sans-serif;
 }
 
@@ -25,8 +25,8 @@
 
 /* Botón hamburguesa */
 .icon-btn {
-  background-color: #F5A474; /* Naranja pastel */
-  color: white;
+  background-color: #4caf50; /* Verde secundario */
+  color: #ffffff;
   border: none;
   font-size: 22px;
   padding: 10px 14px;
@@ -37,16 +37,16 @@
 }
 
 .icon-btn:hover {
-  background-color: #91B5E8;
+  background-color: #66bb6a;
   transform: translateY(-3px);
 }
 
-/* Menú desplegable */
+/* ======== MENÚ DESPLEGABLE ======== */
 .menu-dropdown {
   position: absolute;
   top: 60px;
   left: 0;
-  background: white;
+  background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -61,27 +61,28 @@
   padding: 12px 16px;
   text-align: left;
   font-weight: 600;
-  color: #446BA9;
+  color: #2f7d32;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, padding-left 0.2s ease;
 }
 
 .menu-dropdown button:hover {
-  background-color: #EAF1FB;
+  background-color: #e8f5e9;
+  padding-left: 22px;
 }
 
-/* Íconos */
+/* ======== ÍCONOS ======== */
 .nav-icons {
   display: flex;
   align-items: center;
   gap: 18px;
   font-size: 24px;
-  color: white;
+  color: #ffffff;
   cursor: pointer;
 }
 
 .nav-icons i:hover {
-  color: #F5A474;
+  color: #c8e6c9;
   transform: scale(1.1);
   transition: 0.2s;
 }
@@ -94,10 +95,11 @@
 }
 
 .brand {
-  color: #fff;
+  color: #ffffff;
   font-weight: 800;
   font-size: 24px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 /* ======== DERECHA ======== */
@@ -106,9 +108,10 @@
   align-items: center;
 }
 
+/* Botón cerrar sesión */
 .btn-logout {
-  background-color: #F5A474;
-  color: white;
+  background-color: #4caf50;
+  color: #ffffff;
   border: none;
   font-weight: 700;
   padding: 12px 26px;
@@ -120,7 +123,7 @@
 }
 
 .btn-logout:hover {
-  background-color: #91B5E8;
+  background-color: #66bb6a;
   transform: translateY(-3px);
 }
 

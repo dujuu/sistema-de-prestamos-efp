@@ -1,5 +1,25 @@
 <div class="inventario-container fade-in">
 
+  <!-- 🔔 ALERTA VISUAL -->
+<div
+  class="alerta-flotante"
+  *ngIf="mostrarAlerta"
+  [ngClass]="{
+    'alerta-success': tipoAlerta === 'success',
+    'alerta-error': tipoAlerta === 'error'
+  }"
+>
+  <i
+    class="bi"
+    [ngClass]="{
+      'bi-check-circle-fill': tipoAlerta === 'success',
+      'bi-x-circle-fill': tipoAlerta === 'error'
+    }"
+  ></i>
+  <span>{{ mensajeAlerta }}</span>
+</div>
+
+
   <!-- 🔹 FILTROS -->
   <div class="filtros d-flex gap-2 mb-3">
     <input
@@ -114,16 +134,21 @@
             <span class="paso-numero">4</span>
             Imagen del Modelo (Opcional)
           </label>
-          <div class="upload-area"
-               [class.has-image]="previewImagen">
-            <input type="file" class="file-input"
-                   (change)="onFileSelected($event)"
-                   accept="image/*">
-            <div class="upload-content">
-              <i class="bi bi-cloud-arrow-up"></i>
-              <p>Arrastra o haz clic para subir</p>
-            </div>
+        <label class="upload-area"
+              [class.has-image]="previewImagen">
+
+          <input type="file"
+                class="file-input"
+                (change)="onFileSelected($event)"
+                accept="image/*">
+
+          <div class="upload-content">
+            <i class="bi bi-cloud-arrow-up"></i>
+            <p>Arrastra o haz clic para subir</p>
           </div>
+
+        </label>
+
 
           <img *ngIf="previewImagen"
                [src]="previewImagen"

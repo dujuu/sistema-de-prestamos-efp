@@ -1,49 +1,15 @@
+/* ==========================================================
+   MIS SOLICITUDES — NUEVO DISEÑO VERDE + AZUL GRIS
+========================================================== */
+
+/* CONTENEDOR PRINCIPAL */
 .solicitudes-wrapper {
   display: flex;
   flex-direction: column;
   padding: 2rem 3rem;
-  background: linear-gradient(180deg, #f9faff, #ffffff);
+  background: linear-gradient(180deg, #E9EEF2, #FFFFFF);
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
-}
-.lista-equipos {
-  list-style: none;
-  padding: 0;
-  margin-top: 5px;
-}
-
-.lista-equipos li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.img-equipo {
-  width: 32px;
-  height: 32px;
-  object-fit: cover;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-.lista-equipos {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.lista-equipos li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 3px 0;
-  font-size: 14px;
-}
-
-.lista-equipos i {
-  font-size: 16px;
-  color: #ff8c56; /* mismo estilo de tu diseño */
 }
 
 /* ENCABEZADO */
@@ -53,29 +19,36 @@
   align-items: center;
   margin-bottom: 1.5rem;
 }
+
 .header h1 {
-  color: #d47a35;
-  font-weight: 700;
-  font-size: 1.6rem;
+  color: #2E7D32;  /* Verde institucional */
+  font-weight: 800;
+  font-size: 1.7rem;
 }
+
 .header p {
-  color: #5a5a5a;
-  font-size: 0.9rem;
+  color: #3A506B;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
+
+/* FILTROS */
 .filtros select {
   padding: 0.5rem 1rem;
-  border: 1.5px solid #ccd7ff;
-  border-radius: 8px;
+  border: 1.5px solid #C8D3DD;
+  border-radius: 10px;
   background: #fff;
   margin-left: 0.6rem;
   font-size: 0.9rem;
   transition: all 0.2s ease;
-}
-.filtros select:hover {
-  border-color: #a5b9ff;
+  color: #1E2A32;
 }
 
-/* CONTENIDO PRINCIPAL */
+.filtros select:hover {
+  border-color: #3A506B;
+}
+
+/* GRID PRINCIPAL */
 .main-content {
   display: grid;
   grid-template-columns: 60% 38%;
@@ -86,31 +59,31 @@
 .lista-solicitudes {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.9rem;
 }
 
 /* TARJETAS DE SOLICITUD */
 .solicitud-card {
-  background: #fff;
-  border: 1.5px solid #ccd7ff;
-  border-radius: 14px;
-  padding: 1.3rem 1.6rem;
+  background: #FFFFFF;
+  border: 1.5px solid #DDE3EA;
+  border-radius: 16px;
+  padding: 1.4rem 1.6rem;
   cursor: pointer;
   transition: all 0.25s ease;
-  box-shadow: 0 4px 8px rgba(0, 40, 150, 0.04);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
 }
 
 .solicitud-card:hover {
   transform: translateY(-3px);
-  border-color: #5a79ff;
-  box-shadow: 0 6px 14px rgba(90, 121, 255, 0.1);
+  border-color: #2E7D32;
+  box-shadow: 0 6px 16px rgba(46, 125, 50, 0.18);
 }
 
 .solicitud-card.active {
-  border: 2px solid #ff855c;
-  box-shadow: 0 0 12px rgba(255, 133, 92, 0.25);
+  border: 2px solid #3A506B;
+  box-shadow: 0 0 12px rgba(58, 80, 107, 0.25);
 }
 
 /* CABECERA DE TARJETA */
@@ -122,41 +95,47 @@
 
 .card-header h3 {
   font-size: 1.05rem;
-  font-weight: 600;
-  color: #2f2f2f;
+  font-weight: 700;
+  color: #1E2A32;
 }
 
 /* ETIQUETAS DE ESTADO */
 .estado {
   padding: 0.45rem 0.9rem;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* NUEVA PALETA DE ESTADOS */
 .estado.pendiente {
-  background-color: #ffb58c;
+  background-color: #FFB74D; /* Naranja suave */
 }
 
 .estado.aprobada {
-  background-color: #6cd38a;
+  background-color: #4CAF50; /* Verde claro */
 }
 
 .estado.rechazada {
-  background-color: #e05b5b;
+  background-color: #E53935; /* Rojo serio */
 }
+
 .estado.devuelto {
-  background-color: #15ff00;
+  background-color: #66BB6A; /* Verde pastel */
+}
+/* Estado PRESTADO (nuevo - azul gris institucional) */
+.estado.prestado {
+  background-color: #3A506B; /* Azul gris institucional */
+  color: #FFFFFF;
 }
 
-.estado.aceptado{
-  background-color: #23439c;
-}
 
+.estado.aceptado {
+  background-color: #3A506B; /* Azul gris */
+}
 
 /* CUERPO DE TARJETA */
 .card-body {
@@ -164,35 +143,39 @@
 }
 
 .fecha {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  color: #3e4ba8;
+  color: #3A506B;
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
 
-/* PANEL DERECHO */
+/* PANEL DERECHO — DETALLE */
 .detalle-solicitud {
-  background: #fff;
-  border: 1.5px solid #ccd7ff;
-  border-radius: 16px;
-  padding: 1.8rem;
-  box-shadow: 0 8px 24px rgba(90, 121, 255, 0.1);
+  background: #FFFFFF;
+  border: 1.5px solid #DDE3EA;
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
+
 .detalle-solicitud h2 {
-  font-size: 1.2rem;
-  color: #3451b2;
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #2E7D32;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
 }
+
 .detalle p {
   margin: 0.5rem 0;
-  color: #333;
+  color: #1E2A32;
   font-size: 0.9rem;
 }
+
 .vacio {
   text-align: center;
-  color: #999;
+  color: #7A8A99;
   margin-top: 2rem;
   font-style: italic;
 }
@@ -203,8 +186,3 @@
     grid-template-columns: 1fr;
   }
 }
-
-.icono-equipo {
-  font-size: 20px;
-  color: #ff8c56;
-} 

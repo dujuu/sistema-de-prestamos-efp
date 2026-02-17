@@ -2,7 +2,9 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TipoEquipoService } from '../../../services/tipoEquipo.service';
+import { ReservasService } from '../solicitar-reserva/reservas.service';
+import { Equipo } from '../../../shared/models';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-catalogo-equipos',
@@ -12,18 +14,17 @@ import { TipoEquipoService } from '../../../services/tipoEquipo.service';
   styleUrls: ['./catalogo-equipos.component.css']
 })
 export class CatalogoEquiposComponent {
-
-  private api = inject(TipoEquipoService);
+  private reservas = inject(ReservasService);
   private router = inject(Router);
+  private api = inject(AuthService);
 
-  tipos = signal<TipoEquipo[]>([]);
-  equiposFisicos = signal<EquipoFisico[]>([]);
-
+  
+  equipos = signal<Equipo[]>([]);
   categoriaSeleccionada = signal<string>('TODOS');
+  carrito = signal<number[]>([]);
   busqueda = signal<string>('');
 
-  carrito = signal<CarritoItem[]>([]);
-
+  
   ngOnInit() {
     const token = localStorage.getItem('token') ?? '';
     if (!token) {
@@ -32,152 +33,75 @@ export class CatalogoEquiposComponent {
       return;
     }
 
-    this.api.getCatalogo().subscribe({
-      next: (data: TipoEquipo[]) => {
-        this.tipos.set(data);
+    this.api.getEquipos(token).subscribe({
+      next: (data) => {
+        this.equipos.set(data);
       },
-      error: (err: any) => {
-        console.error('❌ Error al obtener catálogo:', err);
+      error: (err) => {
+        console.error('❌ Error al obtener equipos:', err);
       },
     });
   }
 
-  // ====================
-  // CATEGORÍAS
-  // ====================
   categorias = computed(() => {
-    const todas = this.tipos().map(t => t.categoria ?? 'Otros');
-    return ['TODOS', ...Array.from(new Set(todas))];
+    const todas = this.equipos().map(e => e.categoria);
+    return ['TODOS', ...new Set(todas)];
   });
 
-  tiposFiltrados = computed(() => {
+  equiposFiltrados = computed(() => {
     const texto = this.busqueda().toLowerCase();
     const categoria = this.categoriaSeleccionada();
-
-    return this.tipos().filter(t => {
-      const coincideCategoria =
-        categoria === 'TODOS' || (t.categoria ?? '') === categoria;
-
+    return this.equipos().filter(e => {
+      const coincideCategoria = categoria === 'TODOS' || e.categoria === categoria;
       const coincideTexto =
-        t.nombre.toLowerCase().includes(texto) ||
-        (t.descripcion ?? '').toLowerCase().includes(texto);
-
+        e.nombre.toLowerCase().includes(texto) ||
+        e.codigo.toLowerCase().includes(texto);
       return coincideCategoria && coincideTexto;
     });
   });
 
-  filtrarPorBusqueda(event: Event) {
-    this.busqueda.set((event.target as HTMLInputElement).value);
-    }
 
-  // ===========================
-  // IMÁGENES
-  // ===========================
-  urlImagen(path: string): string {
-    return `http://localhost:8000/storage/${path}`;
+  filtrarPorCategoria(cat: string) {
+    this.categoriaSeleccionada.set(cat);
   }
 
-  getImagenEquipo(e: TipoEquipo): string {
-    const nombre = e.nombre?.toLowerCase() || '';
 
-    if (nombre.includes('cámara') || nombre.includes('canon')) return 'assets/equipos/camara.jpg';
-    if (nombre.includes('micrófono') || nombre.includes('rode')) return 'assets/equipos/aro.jpg';
-    if (nombre.includes('tablet') || nombre.includes('wacom')) return 'assets/equipos/computador.jpg';
-    if (nombre.includes('proyector') || nombre.includes('epson')) return 'assets/equipos/proyector.jpg';
-    if (nombre.includes('grabadora') || nombre.includes('zoom')) return 'assets/equipos/luz.jpg';
+  filtrarPorBusqueda(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.busqueda.set(input.value);
+  }
 
+
+  toggleEquipo(id: number) {
+    const actuales = this.carrito();
+    if (actuales.includes(id)) {
+      this.carrito.set(actuales.filter(x => x !== id));
+    } else {
+      this.carrito.set([...actuales, id]);
+    }
+  }
+  getImagenEquipo(equipo: any): string {
+    const nombre = equipo.nombre?.toLowerCase() || '';
+
+    if (nombre.includes('notebook') || nombre.includes('lenovo')) return 'assets/equipos/notebook.jpg';
+    if (nombre.includes('raspberry') || nombre.includes('raspberry')) return 'assets/equipos/raspberry.jpg';
+    if (nombre.includes('lego') || nombre.includes('lego')) return 'assets/equipos/lego.jpg';
+    if (nombre.includes('monitor') || nombre.includes('monitor')) return 'assets/equipos/monitor.jpg';
+    if (nombre.includes('pc') || nombre.includes('hp')) return 'assets/equipos/pc.png';
+
+
+    // Si no coincide con ninguno, usa una de respaldo cualquiera
     return 'assets/equipos/lampara.jpg';
   }
 
-  // ===========================
-  // CARRITO
-  // ===========================
-  estaEnCarrito(idTipo: number): boolean {
-    return this.carrito().some(c => c.idTipoEquipo === idTipo);
+
+
+  
+  estaSeleccionado(id: number): boolean {
+    return this.carrito().includes(id);
   }
 
-  getCantidad(idTipo: number): number {
-    return this.carrito().find(c => c.idTipoEquipo === idTipo)?.cantidad ?? 0;
-  }
-
-  getModo(idTipo: number): 'cualquiera' | 'especifico' {
-    return this.carrito().find(c => c.idTipoEquipo === idTipo)?.modo ?? 'cualquiera';
-  }
-
-  cambiarModoDesdeEvento(idTipo: number, event: Event) {
-    const value = (event.target as HTMLSelectElement).value;
-    this.cambiarModo(idTipo, value);
-  }
-
-  private agregarSiNoExiste(idTipo: number) {
-    if (!this.estaEnCarrito(idTipo)) {
-      this.carrito.set([
-        ...this.carrito(),
-        {
-          idTipoEquipo: idTipo,
-          cantidad: 1,
-          modo: 'cualquiera',
-          equiposSeleccionados: []
-        }
-      ]);
-    }
-  }
-
-  cambiarCantidad(idTipo: number, delta: number) {
-    if (!this.estaEnCarrito(idTipo) && delta > 0) {
-      this.agregarSiNoExiste(idTipo);
-    }
-
-    this.carrito.update(items =>
-      items.map(item => {
-        if (item.idTipoEquipo === idTipo) {
-          let nueva = item.cantidad + delta;
-          if (nueva < 1) nueva = 1;
-
-          const stock = this.tipos().find(t => t.id === idTipo)?.stock ?? 0;
-          if (nueva > stock) nueva = stock;
-
-          return { ...item, cantidad: nueva };
-        }
-        return item;
-      })
-    );
-  }
-
-  cambiarModo(idTipo: number, valor: string) {
-    const modo = valor === 'especifico' ? 'especifico' : 'cualquiera';
-
-    this.carrito.update(items =>
-      items.map(item =>
-        item.idTipoEquipo === idTipo
-          ? { ...item, modo, equiposSeleccionados: [] }
-          : item
-      )
-    );
-  }
-
-  toggleProducto(idTipo: number) {
-    if (this.estaEnCarrito(idTipo)) {
-      this.carrito.set(this.carrito().filter(c => c.idTipoEquipo !== idTipo));
-    } else {
-      this.agregarSiNoExiste(idTipo);
-    }
-  }
-
-  toggleEquipo(idTipo: number) {
-    this.toggleProducto(idTipo);
-  }
-
-  abrirModalEquipos(idTipo: number) {
-    this.api.getEquiposPorTipo(idTipo).subscribe({
-      next: (resp: EquipoFisico[]) => {
-        this.equiposFisicos.set(resp);
-        console.log('Equipos físicos disponibles:', resp);
-      },
-      error: (err: any) => console.error('Error al cargar equipos físicos', err)
-    });
-  }
-
+  
   continuarReserva() {
     if (this.carrito().length === 0) {
       alert('⚠️ Debes seleccionar al menos un equipo antes de continuar.');
@@ -185,33 +109,7 @@ export class CatalogoEquiposComponent {
     }
 
     this.router.navigate(['/reservas/solicitar'], {
-      state: { carrito: this.carrito() }
+      state: { equiposSeleccionados: this.carrito() }
     });
   }
-}
-
-// ===========================
-// INTERFACES
-// ===========================
-interface TipoEquipo {
-  id: number;
-  nombre: string;
-  descripcion?: string;
-  categoria?: string;
-  imagen?: string;
-  stock: number;
-}
-
-interface EquipoFisico {
-  id: number;
-  codigo: string;
-  estado: string;
-  tipo_equipo_id: number;
-}
-
-interface CarritoItem {
-  idTipoEquipo: number;
-  cantidad: number;
-  modo: 'cualquiera' | 'especifico';
-  equiposSeleccionados: number[];
 }

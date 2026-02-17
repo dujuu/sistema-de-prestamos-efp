@@ -1,328 +1,285 @@
-/* ======== CONTENEDOR GENERAL ======== */
+/* ======================================================
+   DISEÑO NEUMÓRFICO MODERNO — CATÁLOGO DE EQUIPOS
+   100% NUEVO — ZERO parecido al anterior
+====================================================== */
+
 .catalogo-expedia {
   width: 100%;
-  min-height: calc(100vh - 80px);
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  color: #4a4a4a;
-  background-color: #ffffff;
-  padding: 40px 60px;
+  min-height: 100vh;
+  padding: 40px 50px;
+  background: #E9EEF2; /* Fondo suave neumórfico */
+  font-family: "Inter", sans-serif;
+  color: #1E2A32;
   box-sizing: border-box;
 }
 
 /* ======================================================
-   ENCABEZADO SUPERIOR (TÍTULO + BOTÓN DERECHA)
+   ENCABEZADO
 ====================================================== */
 .encabezado-superior {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 35px;
 }
 
 .encabezado-superior .titulo h1 {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 800;
-  color: #446BA9;
+  color: #1E2A32;
   margin: 0;
 }
 
 .encabezado-superior .titulo .sub {
-  color: #7a7a7a;
   font-size: 15px;
+  color: #52616B;
   margin-top: 4px;
 }
 
-/* Botón "Continuar" ahora arriba, alineado a la derecha */
+/* Botón neumórfico */
 .encabezado-superior .acciones button {
+  background: #F5F7FA;
   padding: 14px 26px;
-  font-size: 16px;
-  font-weight: 700;
-  background: #446BA9;
-  color: white;
+  border-radius: 14px;
   border: none;
-  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #1E2A32;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  box-shadow: 8px 8px 15px rgba(0,0,0,0.1),
+              -8px -8px 15px rgba(255,255,255,0.7);
+  transition: all .25s ease;
 }
 
 .encabezado-superior .acciones button:hover {
-  background: #F5A474;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.12),
+              -4px -4px 10px rgba(255,255,255,0.8);
   transform: translateY(-2px);
 }
 
 .encabezado-superior .acciones button:disabled {
-  background: #dbe8fa;
-  color: #446BA9;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* ======== RESPONSIVE: encabezado apilado en móviles ======== */
-@media (max-width: 768px) {
-  .encabezado-superior {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .encabezado-superior .acciones {
-    width: 100%;
-  }
-
-  .encabezado-superior .acciones button {
-    width: 100%;
-  }
-}
-
 /* ======================================================
-   NUEVA BARRA DE CATEGORÍAS CENTRADA CON BUSCADOR ABAJO
+   CATEGORÍAS — NUEVA DISPOSICIÓN BLOQUES NEUMÓRFICOS
 ====================================================== */
+
 .barra-categorias-expedia {
+  width: 100%;
+  background: #E9EEF2;
+  padding: 25px 20px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+
   display: flex;
-  flex-direction: column; /* apila categorías arriba y buscador abajo */
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 25px;
-  margin-bottom: 32px;
-  background: #dbe8fa;
-  padding: 28px 40px;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex-direction: column;
+  gap: 26px;
 }
 
-/* ======== CATEGORÍAS (ahora centradas) ======== */
 .categorias-expedia {
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
-  gap: 50px;
-  width: 100%;
+  gap: 18px;
 }
 
-/* ======== CADA CATEGORÍA ======== */
 .categoria-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
+  padding: 14px 22px;
+  min-width: 120px;
   text-align: center;
-  padding: 8px 10px;
-  color: #446BA9;
+  background: #F5F7FA;
+  border-radius: 16px;
+  color: #1E2A32;
   font-weight: 600;
-  font-size: 14px;
-  position: relative;
-  min-width: 80px;
-}
-
-.categoria-item .icono-categoria {
-  font-size: 30px;
-  color: #446BA9;
-  margin-bottom: 6px;
-  transition: color 0.25s ease, transform 0.25s ease;
-}
-
-.categoria-item:hover .icono-categoria {
-  color: #F5A474;
-  transform: scale(1.1);
-}
-
-.categoria-item:hover span {
-  color: #F5A474;
-}
-
-/* ======== ACTIVO ======== */
-.categoria-item.active .icono-categoria {
-  color: #F5A474;
-}
-
-.categoria-item.active span {
-  color: #F5A474;
-  font-weight: 700;
-}
-
-.categoria-item.active::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  width: 60%;
-  height: 3px;
-  border-radius: 4px;
-  background-color: #F5A474;
-}
-
-/* ======== BUSCADOR CENTRADO ABAJO ======== */
-.busqueda {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border: 2px solid #F5A474;
-  border-radius: 12px;
-  padding: 4px 10px;
-  width: 320px;
-  transition: border-color 0.2s ease;
-}
-
-.busqueda:hover {
-  border-color: #446BA9;
-}
-
-.busqueda input {
-  border: none;
-  outline: none;
-  background: transparent;
-  flex: 1;
-  padding: 8px;
-  font-size: 14px;
-  color: #4a4a4a;
-  text-align: left;
-}
-
-.busqueda button {
-  background: #F5A474;
-  border: none;
-  color: white;
-  padding: 6px 10px;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all .2s ease;
+
+  box-shadow: 5px 5px 12px rgba(0,0,0,0.1),
+              -5px -5px 12px rgba(255,255,255,0.8);
 }
 
-.busqueda button:hover {
-  background: #446BA9;
+.categoria-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.12),
+              -3px -3px 8px rgba(255,255,255,0.9);
+}
+
+.categoria-item.active {
+  background: #3A8D5D;
+  color: white;
+  box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2),
+              inset -4px -4px 10px rgba(255,255,255,0.4);
+}
+
+/* ICONO minimalista */
+.icono-categoria i {
+  font-size: 24px;
+  margin-bottom: 6px;
 }
 
 /* ======================================================
-   GRID DE EQUIPOS
+   BUSCADOR — NUEVO DISEÑO COMPLETO
 ====================================================== */
-.grid-equipos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 28px;
-  margin-top: 20px;
+
+.busqueda {
   width: 100%;
-  box-sizing: border-box;
+  max-width: 420px;
+  margin: 0 auto;
+
+  background: #F5F7FA;
+  display: flex;
+  padding: 10px 16px;
+  border-radius: 16px;
+
+  box-shadow: inset 3px 3px 8px rgba(0,0,0,0.12),
+              inset -3px -3px 8px rgba(255,255,255,0.8);
 }
 
-/* ======== TARJETAS ======== */
+.busqueda input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: #1E2A32;
+}
+
+.busqueda button {
+  background: #3A506B;
+  border: none;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .25s ease;
+}
+
+.busqueda button:hover {
+  background: #3A8D5D;
+}
+
+/* ======================================================
+   GRID DE EQUIPOS — NUEVO LAYOUT
+====================================================== */
+
+.grid-equipos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 32px;
+}
+
+/* ======================================================
+   TARJETA DE EQUIPO — DISEÑO TOTALMENTE NUEVO
+====================================================== */
+
 .card-equipo {
-  background: #fff;
-  border-radius: 16px;
+  background: #F5F7FA;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  border: 1px solid #dbe8fa;
+
+  box-shadow: 8px 8px 16px rgba(0,0,0,0.1),
+              -8px -8px 16px rgba(255,255,255,0.7);
+  transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .card-equipo:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px);
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.13),
+              -4px -4px 12px rgba(255,255,255,0.9);
 }
 
+/* Foto full-height */
 .imagen-wrapper {
+  height: 220px;
   width: 100%;
-  height: 180px;
-  background: #f3f7ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
+  background: #E0E5EA;
 }
 
 .imagen-wrapper img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
-  transition: transform 0.3s ease;
+  object-fit: cover;
+  transition: transform .4s ease;
 }
 
 .card-equipo:hover .imagen-wrapper img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
+/* Contenido */
 .contenido-card {
-  padding: 14px 16px;
+  padding: 18px 20px;
 }
 
 .card-equipo h3 {
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 6px;
-  color: #446BA9;
+  margin: 0 0 4px;
+  color: #1E2A32;
 }
 
 .card-equipo .cat {
-  color: #F5A474;
-  font-size: 14px;
+  color: #3A8D5D;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
 .card-equipo .code {
   font-size: 13px;
-  color: #7a7a7a;
-  margin-top: 4px;
+  color: #6A757E;
 }
 
-/* ======== BOTONES DE TARJETAS ======== */
+/* Botón neumórfico */
 .card-equipo button {
-  margin: 14px;
+  margin: 16px;
   padding: 10px;
-  background: #F5A474;
-  color: white;
+  background: #F5F7FA;
+  color: #1E2A32;
   border: none;
-  border-radius: 10px;
-  cursor: pointer;
+  border-radius: 12px;
   font-weight: 600;
-  transition: background 0.2s, color 0.2s;
+  cursor: pointer;
+
+  box-shadow: 5px 5px 12px rgba(0,0,0,0.1),
+              -5px -5px 12px rgba(255,255,255,0.7);
+
+  transition: all .25s ease;
 }
 
 .card-equipo button:hover {
-  background: #446BA9;
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.12),
+              -3px -3px 8px rgba(255,255,255,0.9);
+  background: #3A8D5D;
+  color: white;
 }
 
-/* ======== ESTADO SELECCIONADO ======== */
+/* Seleccionado */
 .card-equipo.selected {
-  border: 2px solid #446BA9;
-  background-color: #f3f7ff;
+  box-shadow: inset 6px 6px 14px rgba(0,0,0,0.2),
+              inset -6px -6px 14px rgba(255,255,255,0.5);
+  background-color: #D9F1E1;
 }
 
-/* ======== RESPONSIVE GENERAL ======== */
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
 @media (max-width: 1024px) {
   .catalogo-expedia {
     padding: 30px;
   }
-
-  .barra-categorias-expedia {
-    gap: 20px;
-  }
-
-  .busqueda {
-    width: 100%;
-    max-width: 400px;
-  }
 }
 
 @media (max-width: 768px) {
-  .catalogo-expedia {
-    padding: 20px;
-  }
-
   .grid-equipos {
     grid-template-columns: 1fr;
-  }
-
-  .acciones {
-    justify-content: center;
-  }
-
-  .acciones button {
-    width: 100%;
   }
 }

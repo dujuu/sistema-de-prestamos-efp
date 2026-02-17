@@ -5,7 +5,6 @@
       <h1>Mis solicitudes</h1>
       <p>Visualiza y gestiona tus solicitudes de préstamo.</p>
     </div>
-
     <div class="filtros">
       <select (change)="filtrarEstado($event)">
         <option value="">Filtrar por estado</option>
@@ -24,8 +23,7 @@
   </div>
 
   <div class="main-content">
-    
-    <!-- ======== LISTA ======== -->
+    <!-- ======== LISTA DE SOLICITUDES ======== -->
     <div class="lista-solicitudes">
       <div
         class="solicitud-card"
@@ -34,8 +32,10 @@
         (click)="seleccionarSolicitud(s)"
       >
         <div class="card-header">
-          <h3>Solicitud #{{ s.id }} — {{ s.tipo }}</h3>
-          <span class="estado" [ngClass]="s.estado.toLowerCase()">{{ s.estado }}</span>
+          <h3>Solicitud #{{ s.id }} — </h3>
+          <span class="estado" [ngClass]="s.estado.toLowerCase()">
+            {{ s.estado }}
+          </span>
         </div>
 
         <div class="card-body">
@@ -55,49 +55,25 @@
       </p>
     </div>
 
-    <!-- ======== DETALLE ======== -->
+    <!-- ======== DETALLE DE SOLICITUD ======== -->
     <div
       class="detalle-solicitud"
       *ngIf="solicitudSeleccionada()"
       [@slideInRight]
     >
       <h2>Detalle de la solicitud</h2>
-
       <div class="detalle">
-        <p><b>Tipo:</b> {{ solicitudSeleccionada().tipo }}</p>
-
         <p>
-          <b>Periodo:</b>
-          {{
-            solicitudSeleccionada().fecha_fin &&
-            solicitudSeleccionada().fecha_inicio !== solicitudSeleccionada().fecha_fin
-              ? (solicitudSeleccionada().fecha_inicio | date : 'dd/MM') +
-                ' - ' +
-                (solicitudSeleccionada().fecha_fin | date : 'dd/MM')
-              : (solicitudSeleccionada().fecha_inicio | date : 'dd/MM')
-          }}
+
         </p>
-
         <p><b>Bloque:</b> {{ solicitudSeleccionada().bloqueTxt }}</p>
-
-        <p><b>Equipos:</b></p>
-
-        <ul class="lista-equipos" *ngIf="solicitudSeleccionada().equipos.length > 0; else sinEquipos">
-          <li *ngFor="let eq of solicitudSeleccionada().equipos">
-            <i class="bi bi-box-seam icono-equipo"></i>
-            {{ eq.codigo }} — {{ eq.nombre }}
-          </li>
-
-        </ul>
-
-        <ng-template #sinEquipos>
-          <p>—</p>
-        </ng-template>
-
+        <p>
+          <b>Equipos:</b>
+          {{ solicitudSeleccionada().equipos.join(', ') }}
+        </p>
         <p><b>Observación:</b> {{ solicitudSeleccionada().observacion }}</p>
         <p><b>Estado:</b> {{ solicitudSeleccionada().estado }}</p>
       </div>
     </div>
-
   </div>
 </div>

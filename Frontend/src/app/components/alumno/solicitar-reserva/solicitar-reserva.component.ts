@@ -1,6 +1,11 @@
 import { Component, computed, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+  AbstractControl
+} from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { startWith } from 'rxjs/operators';
@@ -45,6 +50,7 @@ export class SolicitarReservaComponent {
   private cdr = inject(ChangeDetectorRef);
 
   usuarioActivo: any = null;
+
   equipos = signal<Equipo[]>([]);
   carrito: CarritoItem[] = [];
 
@@ -106,7 +112,7 @@ export class SolicitarReservaComponent {
     { initialValue: this.form.getRawValue() }
   );
 
-  /** 🔥 VOLVIÓ: requerido por el template */
+  /** requerido por el template */
   asignaturaSeleccionada = computed(() => {
     const id = this.form.get('asignatura')?.value;
 
@@ -114,18 +120,10 @@ export class SolicitarReservaComponent {
     if (id === 'OTROS') return 'OTROS';
 
     const idNum = Number(id);
-        console.log("Valor asignatura:", this.form.get('asignatura')?.value);
-console.log("Asignaturas:", this.asignaturas);
-
     return (
       this.asignaturas.find(a => Number(a.idAsignatura) === idNum)?.nombre || '—'
     );
-
-
   });
-
-
-
 
   /** Resumen usado en el template */
   resumen = computed(() => {
@@ -196,8 +194,11 @@ console.log("Asignaturas:", this.asignaturas);
       next: (data) => {
         this.equipos.set(data);
 
+        // ✅ traer carrito desde el catálogo (state.carrito)
         const state = history.state as { carrito?: CarritoItem[] };
-        if (state?.carrito) this.carrito = state.carrito;
+        if (state?.carrito && Array.isArray(state.carrito)) {
+          this.carrito = state.carrito;
+        }
 
         this.cdr.detectChanges();
       }
@@ -206,19 +207,18 @@ console.log("Asignaturas:", this.asignaturas);
     this.api.getAsignaturas(token).subscribe({
       next: (data) => {
         this.asignaturas = [
-        ...data.map(a => ({
-          idAsignatura: a.id,   
-          nombre: a.nombre
-        })),
-        { idAsignatura: 'OTROS', nombre: 'OTROS' }
-      ];
-
+          ...data.map((a: any) => ({
+            idAsignatura: a.id,
+            nombre: a.nombre
+          })),
+          { idAsignatura: 'OTROS', nombre: 'OTROS' }
+        ];
       }
     });
 
     this.api.getBloques(token).subscribe({
       next: (data) => {
-        this.bloques = data.map((b) => ({
+        this.bloques = data.map((b: any) => ({
           id: b.idBloque,
           texto: `Bloque ${b.idBloque} (${b.hora_inicio} – ${b.hora_fin})`,
         }));
@@ -232,10 +232,16 @@ console.log("Asignaturas:", this.asignaturas);
     this.form.get('tipo_solicitud')!.valueChanges.subscribe(valor => {
       this.tipoSolicitud.set(valor as any);
       this.minFechaInicio = this.calcularMinFecha(valor as any);
+
+      // ✅ limpiar campos según tipo
+      if (valor === 'DENTRO') {
+        this.form.patchValue({ fecha_inicio: '', fecha_fin: '' });
+      } else {
+        this.form.patchValue({ bloques: [] });
+      }
     });
   }
 
-  
   // ============================
   // MANEJADORES
   // ============================
@@ -264,6 +270,50 @@ console.log("Asignaturas:", this.asignaturas);
   }
 
   // ============================
+  // VALIDACIONES EXTRA (BACKEND)
+  // ============================
+  private validarAntesDeEnviar(): string | null {
+    // 1) Equipos obligatorios
+    if (!this.carrito || this.carrito.length === 0) {
+      return 'Debes seleccionar al menos 1 equipo en el catálogo.';
+    }
+
+    // 2) Asignatura obligatoria y nunca undefined
+    const asig = this.f.asignatura.value;
+    if (asig === undefined || asig === null || asig === '') {
+      return 'Debes seleccionar una asignatura.';
+    }
+
+    // 3) Reglas por tipo
+    const tipo = this.f.tipo_solicitud.value;
+
+    if (tipo === 'DENTRO') {
+      const bloquesSel = this.f.bloques.value ?? [];
+      if (!Array.isArray(bloquesSel) || bloquesSel.length === 0) {
+        return 'Selecciona al menos 1 bloque horario (solicitud DENTRO).';
+      }
+    }
+
+    if (tipo === 'FUERA') {
+      const ini = this.f.fecha_inicio.value;
+      const fin = this.f.fecha_fin.value;
+      if (!ini || !fin) {
+        return 'Debes ingresar fecha inicio y fecha fin (solicitud FUERA).';
+      }
+    }
+
+    // 4) Si OTROS => motivo obligatorio (por back)
+    if (asig === 'OTROS') {
+      const mot = this.f.motivo.value;
+      if (!mot || String(mot).trim() === '') {
+        return 'Debes escribir un motivo si seleccionas OTROS.';
+      }
+    }
+
+    return null;
+  }
+
+  // ============================
   // SUBMIT
   // ============================
   submit() {
@@ -271,35 +321,50 @@ console.log("Asignaturas:", this.asignaturas);
       this.form.markAllAsTouched();
       alert('Completa todos los campos.');
       return;
-      
     }
-    
+
+    const msg = this.validarAntesDeEnviar();
+    if (msg) {
+      alert(msg);
+      return;
+    }
 
     const asignaturaSel = this.f.asignatura.value;
     const motivoSel = this.f.motivo.value;
 
-  const payload = {
-  idUser: this.f.idUser.value,
-  tipo: this.f.tipo_solicitud.value,
-  asignatura: asignaturaSel === 'OTROS' ? null : asignaturaSel,
-  motivo: asignaturaSel === 'OTROS' ? motivoSel : '',
-  observacion: this.f.observacion.value,
-  fecha_inicio: this.f.fecha_inicio.value,
-  fecha_fin: this.f.fecha_fin.value,
-  bloques: this.f.bloques.value,
+    // ✅ normalizar asignatura:
+    // - OTROS => null
+    // - normal => number
+    const asignaturaPayload =
+      asignaturaSel === 'OTROS' ? null : Number(asignaturaSel);
 
-equipos: this.carrito.map(c => ({
-  idTipoEquipo: Number(c.idTipoEquipo),
-  cantidad: c.modo === "especifico"
-    ? c.equiposSeleccionados.length
-    : Number(c.cantidad),
-  modo: c.modo,
-  equiposSeleccionados: c.equiposSeleccionados ?? []
-}))
+    const payload = {
+      idUser: Number(this.f.idUser.value),
+      tipo: this.f.tipo_solicitud.value,
 
-};
-  console.log(JSON.stringify(payload, null, 2))
+      asignatura: asignaturaPayload,
+      motivo: asignaturaSel === 'OTROS' ? (motivoSel ?? '') : '',
 
+      observacion: this.f.observacion.value ?? '',
+
+      // ✅ si DENTRO, fechas vacías
+      fecha_inicio: this.f.tipo_solicitud.value === 'FUERA' ? this.f.fecha_inicio.value : '',
+      fecha_fin: this.f.tipo_solicitud.value === 'FUERA' ? this.f.fecha_fin.value : '',
+
+      // ✅ si FUERA, bloques vacíos
+      bloques: this.f.tipo_solicitud.value === 'DENTRO' ? (this.f.bloques.value ?? []) : [],
+
+      equipos: this.carrito.map(c => ({
+        idTipoEquipo: Number(c.idTipoEquipo),
+        cantidad: c.modo === 'especifico'
+          ? (c.equiposSeleccionados?.length ?? 0)
+          : Number(c.cantidad),
+        modo: c.modo,
+        equiposSeleccionados: c.equiposSeleccionados ?? []
+      }))
+    };
+
+    console.log('PAYLOAD ENVIADO:', JSON.stringify(payload, null, 2));
 
     const token = localStorage.getItem('token') ?? '';
 
@@ -307,6 +372,10 @@ equipos: this.carrito.map(c => ({
       next: () => {
         alert('Solicitud enviada.');
         this.limpiar();
+      },
+      error: (err) => {
+        console.error('❌ ERROR 422:', err);
+        alert('El servidor rechazó la solicitud (422). Revisa consola: payload y mensajes.');
       }
     });
   }
@@ -327,7 +396,6 @@ equipos: this.carrito.map(c => ({
   }
 }
 
-
 // =======================
 // INTERFACES
 // =======================
@@ -336,7 +404,7 @@ interface Equipo {
   nombre: string;
   categoria: string;
   codigo: string;
-  tipo_equipo_id: number;   // 👈 IMPORTANTE
+  tipo_equipo_id: number;
 }
 
 interface CarritoItem {

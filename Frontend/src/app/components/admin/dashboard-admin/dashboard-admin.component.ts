@@ -8,6 +8,7 @@ import { SolicitudesPendientesComponent } from '../solicitudes-pendientes/solici
 import { SolicitudesFinalizadasComponent } from '../solicitudes-finalizadas/solicitudes-finalizadas.component';
 import { InventarioComponent } from '../inventario/inventario.component';
 import { CuentasComponent } from '../cuentas/cuentas.component';
+import { PreguntasFrecuentesAdminComponent } from '../preguntas-frecuentes-admin/preguntas-frecuentes-admin.component';  // ✅ NUEVO
 
 import { AuthService } from '../../../services/auth.service';
 
@@ -22,7 +23,8 @@ import { AuthService } from '../../../services/auth.service';
     SolicitudesPendientesComponent,
     SolicitudesFinalizadasComponent,
     InventarioComponent,
-    CuentasComponent
+    CuentasComponent,
+    PreguntasFrecuentesAdminComponent  // ✅ IMPORTADO
   ],
   templateUrl: './dashboard-admin.component.html',
   styleUrls: ['./dashboard-admin.component.css']
@@ -32,32 +34,63 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private api = inject(AuthService);
 
+  // 🔹 Secciones internas del dashboard
+  seccionActiva:
+    'gestionar' |
+    'solicitudes' |
+    'finalizadas' |
+    'inventario' |
+    'cuentas' |
+    'preguntas-frecuentes' = 'gestionar';     // ✅ NUEVO
 
-  seccionActiva: 'gestionar' | 'solicitudes' | 'finalizadas' | 'inventario' | 'cuentas' = 'gestionar';
-
+  // Estadísticas
   totalEquipos = 0;
   totalSancionesActivas = 0;
 
-
+  // Listener para eventos del navbar
   listener: any;
 
-ngOnInit(): void {
-  this.cargarEquipos();
-  this.cargarSancionesActivas();
+  ngOnInit(): void {
+    this.cargarEquipos();
+    this.cargarSancionesActivas();
 
-  this.listener = (e: any) => {
-    switch (e.detail) {
-      case 'gestionar': this.seccionActiva = 'gestionar'; break;
-      case 'solicitudes': this.seccionActiva = 'solicitudes'; break;
-      case 'finalizadas': this.seccionActiva = 'finalizadas'; break;
-      case 'inventario': this.seccionActiva = 'inventario'; break;
-      case 'cuentas': this.seccionActiva = 'cuentas'; break;
-    }
-  };
+    /** 🔹 NAVBAR -> Dashboard */
+    this.listener = (e: any) => {
+      switch (e.detail) {
 
-  window.addEventListener('admin-navegacion', this.listener);
-}
+        case 'gestionar':
+          this.seccionActiva = 'gestionar';
+          break;
 
+        case 'solicitudes':
+          this.seccionActiva = 'solicitudes';
+          break;
+
+        case 'finalizadas':
+          this.seccionActiva = 'finalizadas';
+          break;
+
+        case 'inventario':
+          this.seccionActiva = 'inventario';
+          break;
+
+        case 'cuentas':
+          this.seccionActiva = 'cuentas';
+          break;
+
+        case 'asignaturas':
+          this.irGestionarAsignaturas();
+          break;
+
+        /** ⭐ NUEVO: Preguntas Frecuentes */
+        case 'preguntas-frecuentes':
+          this.seccionActiva = 'preguntas-frecuentes';
+          break;
+      }
+    };
+
+    window.addEventListener('admin-navegacion', this.listener);
+  }
 
   ngOnDestroy(): void {
     if (this.listener) {
@@ -65,17 +98,17 @@ ngOnInit(): void {
     }
   }
 
+  /** 🔹 Cargar número de sanciones activas */
   private cargarSancionesActivas(): void {
-  const token = localStorage.getItem('token') ?? '';
+    const token = localStorage.getItem('token') ?? '';
 
-  this.api.getSancionesActivas(token).subscribe({
-    next: (data) => this.totalSancionesActivas = data.length,
-    
-    error: (err) => console.error('Error al cargar sanciones activas:', err)
-  });
-}
+    this.api.getSancionesActivas(token).subscribe({
+      next: (data) => this.totalSancionesActivas = data.length,
+      error: (err) => console.error('Error al cargar sanciones activas:', err)
+    });
+  }
 
-
+  /** 🔹 Cargar número de equipos */
   private cargarEquipos(): void {
     const token = localStorage.getItem('token') ?? '';
 
@@ -85,9 +118,15 @@ ngOnInit(): void {
     });
   }
 
+  /** 🔹 Cerrar sesión */
   cerrarSesion() {
     if (confirm('¿Seguro deseas cerrar sesión?')) {
       this.router.navigate(['/auth/login']);
     }
+  }
+
+  /** 🔹 Navegar hacia la vista de asignaturas/eventos */
+  irGestionarAsignaturas() {
+    this.router.navigate(['/admin/asignaturas']);
   }
 }

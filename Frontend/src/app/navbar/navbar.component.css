@@ -1,13 +1,13 @@
-/* ======== NAVBAR PRINCIPAL ======== */
+/* ========= NAVBAR PRINCIPAL (VERSIÓN VERDE) ========= */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 50;
   width: 100%;
   height: 130px;
-  background-color: #446ba9; /* Azul institucional */
-  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.25);
-  border-bottom: 2px solid rgba(145, 181, 232, 0.3);
+  background-color: #2E7D32; /* Verde institucional */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  border-bottom: 2px solid rgba(165, 214, 167, 0.35);
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -15,6 +15,7 @@
   box-sizing: border-box;
 }
 
+/* LOGO/TÍTULO */
 .logo {
   font-weight: 800;
   font-size: 26px;
@@ -24,7 +25,7 @@
   white-space: nowrap;
 }
 
-/* ======== BOTONES (usuarios normales) ======== */
+/* ========= BOTONES (Usuario normal) ========= */
 ul {
   list-style: none;
   display: flex;
@@ -38,8 +39,9 @@ ul {
   transform: translateY(-50%);
 }
 
+/* ESTILO DE LOS BOTONES */
 a {
-  background-color: #f5a474;
+  background-color: #81C784; /* Verde suave */
   color: #ffffff;
   text-decoration: none;
   font-weight: 700;
@@ -47,7 +49,7 @@ a {
   border-radius: 14px;
   font-size: 18px;
   transition: all 0.25s ease;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -55,20 +57,22 @@ a {
   white-space: nowrap;
 }
 
+/* Hover dinámico */
 a:hover {
-  background-color: #91b5e8;
+  background-color: #66BB6A; /* Verde más intenso */
   transform: translateY(-3px);
-  box-shadow: 0 5px 16px rgba(145, 181, 232, 0.6);
+  box-shadow: 0 5px 16px rgba(46, 125, 50, 0.45);
 }
 
+/* Activo */
 a.active,
 a[routerLinkActive="active"] {
-  background-color: #91b5e8;
+  background-color: #4CAF50; /* Verde medio */
   color: #ffffff;
-  box-shadow: 0 4px 12px rgba(145, 181, 232, 0.5);
+  box-shadow: 0 4px 12px rgba(46, 125, 50, 0.4);
 }
 
-/* ======== MENU ADMIN ======== */
+/* ========= MENÚ ADMIN (lo dejo igual pero estilizado al verde) ========= */
 .admin-menu {
   position: absolute;
   right: 60px;
@@ -77,7 +81,7 @@ a[routerLinkActive="active"] {
 }
 
 .dropdown-btn {
-  background-color: #f5a474;
+  background-color: #81C784;
   border: none;
   color: #fff;
   font-weight: 700;
@@ -93,7 +97,7 @@ a[routerLinkActive="active"] {
 }
 
 .dropdown-btn:hover {
-  background-color: #91b5e8;
+  background-color: #66BB6A;
   transform: translateY(-2px);
 }
 
@@ -118,8 +122,9 @@ a[routerLinkActive="active"] {
   display: flex;
 }
 
+/* Items menú admin */
 .dropdown-menu a {
-  color: #446ba9;
+  color: #2E7D32;
   font-weight: 600;
   padding: 12px 20px;
   border: none;
@@ -133,24 +138,25 @@ a[routerLinkActive="active"] {
 }
 
 .dropdown-menu a:hover {
-  background-color: #f5f8ff;
+  background-color: #E8F5E9; /* Verde muy claro */
 }
 
 .dropdown-menu hr {
   margin: 8px 0;
   border: 0;
-  border-top: 1px solid #e5e9f2;
+  border-top: 1px solid #D7DFD7;
 }
 
+/* Cerrar sesión */
 .dropdown-menu a.cerrar {
-  color: #e94f64;
+  color: #C62828;
 }
 
 .dropdown-menu a.cerrar:hover {
-  background-color: #fff3f3;
+  background-color: #FFEBEE;
 }
 
-/* Animación suave */
+/* Animación */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -162,17 +168,14 @@ a[routerLinkActive="active"] {
   }
 }
 
-/* ======== RESPONSIVE ======== */
+/* ========= RESPONSIVE ========= */
 @media (max-width: 1024px) {
   .navbar {
     height: auto;
     padding: 20px;
     justify-content: center;
-  }
-
-  .logo {
+    flex-direction: column;
     text-align: center;
-    margin-bottom: 12px;
   }
 
   ul {
@@ -181,6 +184,7 @@ a[routerLinkActive="active"] {
     justify-content: center;
     flex-direction: column;
     gap: 15px;
+    margin-top: 12px;
   }
 
   a,

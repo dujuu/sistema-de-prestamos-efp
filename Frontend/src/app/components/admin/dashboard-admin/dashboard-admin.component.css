@@ -1,11 +1,11 @@
 /* === NAVBAR PRINCIPAL ADMIN === */
 .admin-navbar {
-  background-color: #446BA9;
+  background-color: #2f7d32;
   height: 80px;
-  border-bottom: 2px solid rgba(145, 181, 232, 0.3);
+  border-bottom: 2px solid rgba(76, 175, 80, 0.3);
   display: flex;
   align-items: center;
-  box-shadow: 0 4px 20px rgba(2, 6, 23, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .navbar-content {
@@ -18,27 +18,27 @@
 .navbar-title {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #fff;
+  color: #ffffff;
   letter-spacing: 0.3px;
 }
 
 .btn-menu {
   background: transparent;
   border: none;
-  color: #fff;
+  color: #ffffff;
   font-size: 1.7rem;
   transition: transform 0.2s ease;
 }
 
 .btn-menu:hover {
   transform: scale(1.1);
-  color: #dbe5f1;
+  color: #c8e6c9;
 }
 
 .btn-logout {
-  background-color: #f5a474;
+  background-color: #4caf50;
   border: none;
-  color: #fff;
+  color: #ffffff;
   font-weight: 600;
   padding: 0.5rem 1.2rem;
   border-radius: 12px;
@@ -46,14 +46,14 @@
 }
 
 .btn-logout:hover {
-  background-color: #91b5e8;
+  background-color: #66bb6a;
   transform: translateY(-2px);
 }
 
 /* === MENU LATERAL (OFFCANVAS) === */
 .admin-menu {
-  background: #f8faff;
-  border-right: 2px solid rgba(145, 181, 232, 0.25);
+  background: #f1f8f4;
+  border-right: 2px solid rgba(76, 175, 80, 0.25);
 }
 
 .admin-menu .offcanvas-header {
@@ -61,13 +61,13 @@
 }
 
 .admin-menu .btn {
-  color: #446ba9;
+  color: #2f7d32;
   font-weight: 600;
   transition: 0.25s ease;
 }
 
 .admin-menu .btn:hover {
-  color: #2f4abf;
+  color: #1b5e20;
   transform: translateX(5px);
 }
 
@@ -76,7 +76,7 @@
   max-width: 1400px;
   margin: 1rem auto;
   padding: 3rem;
-  background: linear-gradient(135deg, #ffffff 0%, #f7faff 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   min-height: calc(100vh - 120px);
@@ -94,19 +94,16 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  color: #4b6cb7;
+  color: #2f7d32;
   margin-bottom: 1rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .admin-subtitle {
-  font-size: 1.2rem;
-  color: #6b7280;
+  font-size: 1.1rem;
+  color: #4b5563;
   margin: 0;
-  font-weight: 400;
-  opacity: 0.9;
 }
 
 /* === TARJETAS DE ESTADÍSTICAS === */
@@ -121,10 +118,10 @@
 }
 
 .stat-card {
-  background: #fff;
+  background: #ffffff;
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(68, 107, 169, 0.1);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.15);
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -134,18 +131,17 @@
 
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(68, 107, 169, 0.15);
 }
 
 .stat-info h3 {
   font-size: 2rem;
   font-weight: 700;
-  color: #f5a474;
+  color: #4caf50;
   margin: 0;
 }
 
 .stat-info p {
-  color: #6e7fa8;
+  color: #4b5563;
   margin: 0;
   font-size: 0.9rem;
 }
@@ -158,10 +154,9 @@
 .section-title {
   font-size: 2.2rem;
   font-weight: 600;
-  color: #f5a474;
+  color: #2f7d32;
   margin-bottom: 2rem;
   text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* === CUADRÍCULA DE ACCIONES === */
@@ -174,10 +169,10 @@
 }
 
 .action-card {
-  background: #fff;
+  background: #ffffff;
   padding: 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(68, 107, 169, 0.1);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.15);
   text-decoration: none;
   color: inherit;
   transition: all 0.3s ease;
@@ -190,75 +185,74 @@
 
 .action-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(68, 107, 169, 0.15);
 }
 
+/* Hover por tipo */
 .action-card.equipos:hover {
-  border-color: #3b82f6;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: #4caf50;
+  background: #e8f5e9;
 }
 
 .action-card.packs:hover {
   border-color: #10b981;
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  background: #ecfdf5;
 }
 
 .action-card.sanciones:hover {
   border-color: #f59e0b;
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+  background: #fffbeb;
 }
 
 .action-card.solicitudes:hover {
   border-color: #8b5cf6;
-  background: linear-gradient(135deg, #faf5ff 0%, #e9d5ff 100%);
+  background: #faf5ff;
 }
 
 .action-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
-  color: #446ba9;
+  color: #2f7d32;
 }
 
 .action-card h3 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #4b6cb7;
+  color: #2f7d32;
   margin-bottom: 1rem;
 }
 
 .action-card p {
-  color: #6b7280;
+  color: #4b5563;
   margin: 0;
   line-height: 1.6;
   font-size: 1rem;
-  opacity: 0.9;
 }
 
 /* === PIE DE PÁGINA === */
 .admin-footer {
   text-align: center;
   padding-top: 3rem;
-  border-top: 1px solid #e4e8f1;
+  border-top: 1px solid #d1fae5;
   margin-top: 3rem;
 }
 
 .footer-text {
-  color: #6e7fa8;
+  color: #4b5563;
   font-size: 0.9rem;
   margin: 0;
 }
 
 /* === NOTIFICACIONES === */
 .notificaciones-section {
-  background: #fff;
+  background: #ffffff;
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 6px 16px rgba(68, 107, 169, 0.1);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.15);
 }
 
 .notificacion-item {
-  background: #f8faff;
-  border-left: 5px solid #f5a474;
+  background: #f1f8f4;
+  border-left: 5px solid #4caf50;
   padding: 1rem 1.2rem;
   border-radius: 10px;
   margin-bottom: 1rem;
@@ -268,46 +262,45 @@
 
 .notificacion-item:hover {
   transform: scale(1.02);
-  background: #fff7f2;
+  background: #ffffff;
 }
 
 .notificacion-item.procesada {
-  border-left-color: #91b5e8;
+  border-left-color: #a7f3d0;
   opacity: 0.8;
 }
 
 .notificacion-titulo {
   font-weight: 600;
-  color: #4b6cb7;
+  color: #2f7d32;
 }
 
 .notificacion-descripcion {
-  color: #6b7280;
-  margin: 0.3rem 0;
+  color: #4b5563;
 }
 
 .notificacion-tiempo {
   font-size: 0.85rem;
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 /* === BOTONES === */
 .btn-primary {
-  background-color: #446ba9;
+  background-color: #2f7d32;
   border: none;
 }
 
 .btn-primary:hover {
-  background-color: #365a8f;
+  background-color: #1b5e20;
 }
 
 .btn-success {
-  background-color: #10b981;
+  background-color: #4caf50;
   border: none;
 }
 
 .btn-danger {
-  background-color: #e94f64;
+  background-color: #ef4444;
   border: none;
 }
 
@@ -328,10 +321,6 @@
     font-size: 2rem;
   }
 
-  .admin-subtitle {
-    font-size: 1rem;
-  }
-
   .section-title {
     font-size: 1.6rem;
   }
@@ -345,43 +334,17 @@
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-
-  .action-card {
-    padding: 2rem;
-    min-height: 180px;
-  }
 }
 
-/* 🔹 Sección completa para solicitudes */
+/* === SECCIÓN COMPLETA === */
 .admin-full-container {
   width: 100%;
-  min-height: calc(100vh - 80px); /* altura total menos el navbar */
-  background: linear-gradient(135deg, #f8faff, #ffffff);
+  min-height: calc(100vh - 80px);
+  background: linear-gradient(135deg, #f9fafb, #e8f5e9);
   padding: 2rem 4rem;
-}
-
-.admin-full-container .admin-header {
-  text-align: center;
-  margin-bottom: 2rem;
 }
 
 .admin-full-container .admin-title {
   font-size: 2rem;
-  color: #2b478b;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.admin-full-container .admin-subtitle {
-  color: #666;
-  font-size: 1rem;
-  margin: 0;
-}
-
-/* Footer alineado */
-.admin-footer {
-  text-align: center;
-  margin-top: 3rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e0e0e0;
+  color: #2f7d32;
 }

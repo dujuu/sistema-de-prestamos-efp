@@ -824,3 +824,46 @@
     right: 12px;
   }
 }
+
+
+.alerta-flotante {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 280px;
+  max-width: 360px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  animation: slideIn 0.3s ease-out;
+  z-index: 9999;
+}
+
+.alerta-success {
+  background: #e8f7ee;
+  color: #1e7e34;
+}
+
+.alerta-error {
+  background: #fdecea;
+  color: #b02a37;
+}
+
+.alerta-flotante i {
+  font-size: 1.4rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

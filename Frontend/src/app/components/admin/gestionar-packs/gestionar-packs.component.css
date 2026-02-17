@@ -1,0 +1,289 @@
+/* ============================================
+   CONTENEDOR GENERAL
+============================================ */
+.admin-container {
+  padding: 30px 60px;
+  font-family: 'Poppins', sans-serif;
+  min-height: calc(100vh - 140px);
+  overflow: hidden;
+}
+
+.titulo-pagina {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2a2a2a;
+}
+
+/* ============================================
+   LAYOUT PRINCIPAL (3 COLUMNAS)
+============================================ */
+.reservas-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 0.9fr;
+  gap: 35px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* ============================================
+   LISTA IZQUIERDA — PACKS
+============================================ */
+.header-lista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.btn-crear {
+  background: #6fa8dc;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-crear:hover {
+  background: #558bc5;
+}
+
+.sin-reservas {
+  margin-top: 20px;
+  font-style: italic;
+  color: #777;
+}
+
+.pack-card,
+.reserva-card {
+  background: white;
+  border: 2px solid #ffc8a8;
+  border-radius: 14px;
+  padding: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.pack-card:hover,
+.reserva-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+}
+
+.pack-card.activa,
+.reserva-card.activa {
+  border-color: #4A74B7;
+}
+
+.sub-info {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.scroll-columna {
+  max-height: calc(100vh - 240px);
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* ============================================
+   COLUMNA CENTRAL (FORMULARIO / DETALLE)
+============================================ */
+.columna-form {
+  background: #f9fbff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  max-height: calc(100vh - 240px);
+}
+
+.titulo-form {
+  margin-bottom: 20px;
+  color: #446BA9;
+}
+
+/* ============================================
+   FORMULARIO
+============================================ */
+.form-grupo {
+  margin-bottom: 18px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+textarea {
+  resize: none;
+}
+
+/* ============================================
+   AGREGAR EQUIPOS AL PACK
+============================================ */
+.equipo-flex {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.equipo-flex select {
+  flex: 1;
+}
+
+.input-cantidad {
+  width: 90px !important;
+}
+
+.btn-agregar {
+  background: #4A74B7;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-agregar:hover {
+  background: #365892;
+}
+
+.lista-equipos {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-equipo {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #cbd6f3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-eliminar {
+  background: #ff7979;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-eliminar:hover {
+  background: #cc5f5f;
+}
+
+/* ============================================
+   BOTÓN CREAR PACK
+============================================ */
+.btn-guardar {
+  width: 100%;
+  background: #446BA9;
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-guardar:hover {
+  background: #365892;
+}
+
+/* ============================================
+   COLUMNA DERECHA — RESUMEN PACK
+============================================ */
+.columna-resumen {
+  padding: 10px;
+}
+
+.resumen-box {
+  background: #fdfdff;
+  border: 1.8px solid #d6e0ff;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.resumen-box h3 {
+  margin-bottom: 15px;
+  color: #3f5ea5;
+}
+
+.resumen-box p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.lista-resumen-equipos {
+  margin-left: 15px;
+  margin-bottom: 12px;
+}
+
+.texto-vacio {
+  font-style: italic;
+  color: #777;
+}
+
+/* ============================================
+   DETALLE DEL PACK
+============================================ */
+.detalle-reserva-box {
+  background: #fdfdff;
+  border: 1.8px solid #d6e0ff;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.detalle-reserva-box h3 {
+  margin-bottom: 15px;
+  color: #3f5ea5;
+}
+
+.detalle-reserva-box p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+/* ============================================
+   ELIMINAR PACK
+============================================ */
+.btn-eliminar-pack {
+  margin-top: 20px;
+  width: 100%;
+  background: #ff5c5c;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-eliminar-pack:hover {
+  background: #d64545;
+  transform: translateY(-2px);
+}

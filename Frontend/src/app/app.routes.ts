@@ -24,7 +24,7 @@ import { ReportesInventarioComponent } from './components/admin/reportes/reporte
 import { ReportesSancionesComponent } from './components/admin/reportes/reportes-sanciones/reportes-sanciones.component';
 import { ReportesMantenimientosComponent } from './components/admin/reportes/reportes-mantenimientos/reportes-mantenimientos.component';
 import { ReportesEquiposComponent } from './components/admin/reportes/reportes-equipos/reportes-equipos.component';
-
+import { GestionarAsignaturasComponent } from './components/admin/asignaturas/gestionar-asignaturas.component';
 export const routes: Routes = [
   // REDIRECCIÓN INICIAL
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
@@ -49,6 +49,14 @@ export const routes: Routes = [
       import('./components/alumno/mis-solicitudes/mis-solicitudes.component')
         .then(m => m.MisSolicitudesComponent)
   },
+
+  {
+    path: 'preguntas-frecuentes',
+    loadComponent: () =>
+      import('./components/alumno/preguntas-frecuentes-alumno/preguntas-frecuentes-alumno.component')
+        .then(c => c.PreguntasFrecuentesAlumnoComponent)
+  },
+
 
   // ADMIN
   { path: 'admin/dashboard', component: DashboardAdminComponent },
@@ -88,6 +96,29 @@ export const routes: Routes = [
       import('./components/admin/gestionar-sanciones/gestionar-sanciones.component')
         .then(c => c.GestionarSancionesComponent)
   },
+
+  {
+    path: 'admin/asignaturas',
+    loadComponent: () =>
+      import('./components/admin/asignaturas/gestionar-asignaturas.component')
+        .then(m => m.GestionarAsignaturasComponent)
+  },
+
+
+  {
+    path: 'admin/packs',
+    loadComponent: () =>
+      import('./components/admin/gestionar-packs/gestionar-packs.component')
+        .then(m => m.GestionarPacksComponent)
+  },
+
+  {
+  path: 'admin/preguntas-frecuentes',
+  loadComponent: () =>
+    import('./components/admin/preguntas-frecuentes-admin/preguntas-frecuentes-admin.component')
+    .then(c => c.PreguntasFrecuentesAdminComponent)
+},
+
 
 
   // 404 → LOGIN

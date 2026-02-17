@@ -1,23 +1,29 @@
 <nav class="navbar">
   <div class="nav-inner">
-    <span class="logo">Registro y Préstamo. Diseño Multimedia</span>
 
-    <!--  Botones regulares (solo usuarios normales) -->
+    <!-- TEXTOS ACTUALIZADOS PARA EL NUEVO DEPARTAMENTO -->
+    <span class="logo">Departamento de Computación e Informática</span>
+
+    <!-- 🔹 Botones regulares (usuarios normales) -->
     <ul *ngIf="!esAdmin">
       <li>
         <a routerLink="/equipos/catalogo" routerLinkActive="active">
-          Solicitar equipo
-        </a>
-      </li>
-      <li>
-        <a routerLink="/mis-solicitudes" routerLinkActive="active">
-          Mis solicitudes
-        </a>
-      </li>
-      <li>
-        <a (click)="cerrarSesion()">
-          Cerrar sesión
+          Catálogo de Equipos
         </a>
       </li>
 
+      <li>
+        <a routerLink="/mis-solicitudes" routerLinkActive="active">
+          Mis Solicitudes
+        </a>
+      </li>
+
+      <li>
+        <a (click)="cerrarSesion()">
+          Cerrar Sesión
+        </a>
+      </li>
     </ul>
+
+  </div>
+</nav>

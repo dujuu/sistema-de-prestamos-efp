@@ -1,9 +1,10 @@
+
 <!-- 🧩 SECCIÓN GESTIONAR -->
 <div class="admin-full-container" *ngIf="seccionActiva === 'gestionar'">
 
   <div class="admin-header">
     <h1 class="admin-title">Panel de Administración</h1>
-    <p class="admin-subtitle">Gestiona equipos, packs y sanciones del sistema</p>
+    <p class="admin-subtitle">Gestiona equipos, y sanciones del sistema</p>
   </div>
 
   <!-- 🔹 Estadísticas -->
@@ -15,20 +16,6 @@
       </div>
     </div>
 
-    <div class="stat-card">
-      <div class="stat-info">
-        <h3>8</h3>
-        <p>Packs Activos</p>
-      </div>
-    </div>
-
-    <div class="stat-card">
-      <div class="stat-info">
-      <h3>{{ totalSancionesActivas }}</h3>
-      <p>Sanciones Activas</p>
-
-      </div>
-    </div>
   </div>
 
   <!-- 🔹 Acciones Rápidas -->
@@ -37,24 +24,23 @@
 
     <div class="action-grid">
 
+      <!-- Gestión Equipos -->
       <div class="action-card equipos" (click)="seccionActiva = 'inventario'">
         <div class="action-icon"><i class="bi bi-hdd-stack"></i></div>
         <h3>Gestionar Equipos</h3>
         <p>Crear, editar y eliminar equipos del sistema</p>
       </div>
 
-      <a routerLink="/admin/packs" class="action-card packs">
-        <div class="action-icon"><i class="bi bi-box-seam"></i></div>
-        <h3>Gestionar Packs</h3>
-        <p>Crear y administrar paquetes de equipos</p>
-      </a>
 
+
+      <!-- Gestión Sanciones -->
       <a routerLink="/admin/sanciones" class="action-card sanciones">
         <div class="action-icon"><i class="bi bi-exclamation-triangle"></i></div>
         <h3>Gestionar Sanciones</h3>
         <p>Emitir y administrar sanciones a usuarios</p>
       </a>
 
+      <!-- Gestión Cuentas -->
       <div class="action-card cuentas" (click)="seccionActiva = 'cuentas'">
         <div class="action-icon"><i class="bi bi-people-fill"></i></div>
         <h3>Gestionar Cuentas</h3>
@@ -77,15 +63,6 @@
   </div>
 
   <app-solicitudes-pendientes></app-solicitudes-pendientes>
-</div>
-
-<!-- 🧩 SECCIÓN SOLICITUDES FINALIZADAS -->
-<div class="admin-full-container" *ngIf="seccionActiva === 'finalizadas'">
-  <div class="admin-header">
-    <h1 class="admin-title">Préstamos Finalizados</h1>
-  </div>
-
-  <app-solicitudes-finalizadas></app-solicitudes-finalizadas>
 </div>
 
 <!-- 🧩 SECCIÓN INVENTARIO -->

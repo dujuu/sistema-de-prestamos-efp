@@ -1,0 +1,20 @@
+<h1 class="titulo">Gestión de Preguntas Frecuentes (Admin)</h1>
+
+<div class="formulario">
+  <input type="text" placeholder="Nueva pregunta" [(ngModel)]="nuevaPregunta">
+  <textarea placeholder="Respuesta" [(ngModel)]="nuevaRespuesta"></textarea>
+  <button (click)="agregarPregunta()">Agregar Pregunta</button>
+</div>
+
+<hr>
+
+<div class="lista">
+  <div class="item" *ngFor="let p of preguntas; let i = index">
+    <h3>{{ p.pregunta }}</h3>
+    <p>{{ p.respuesta }}</p>
+
+    <button class="eliminar" (click)="eliminarPregunta(i)">
+      Eliminar
+    </button>
+  </div>
+</div>

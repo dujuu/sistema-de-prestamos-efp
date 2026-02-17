@@ -30,6 +30,9 @@ export class ResetPasswordComponent implements OnInit {
     // 📩 Obtener token y email desde la URL
     this.token = this.route.snapshot.queryParamMap.get('token') || '';
     this.email = this.route.snapshot.queryParamMap.get('email') || '';
+    console.log('TOKEN:', this.token);
+    console.log('EMAIL:', this.email);
+
 
     // Crear formulario reactivo
     this.form = this.fb.group({

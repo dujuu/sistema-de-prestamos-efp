@@ -1,0 +1,137 @@
+<app-navbar-admin></app-navbar-admin>
+
+<div class="admin-container">
+  
+  <h2 class="titulo-pagina">Gestionar Packs</h2>
+
+  <div class="reservas-layout">
+
+    <!-- ==========================================================
+         COLUMNA IZQUIERDA — LISTA DE PACKS
+    ========================================================== -->
+    <div class="columna-lista scroll-columna">
+
+      <div class="header-lista">
+        <h3>Packs</h3>
+        <button class="btn-crear" (click)="nuevoPack()">+ Crear nuevo pack</button>
+      </div>
+
+      <p *ngIf="packs.length === 0" class="sin-reservas">
+        No hay packs creados.
+      </p>
+
+      <div
+        class="reserva-card"
+        *ngFor="let p of packs"
+        (click)="seleccionarPack(p)"
+        [class.activa]="p === packSeleccionado"
+      >
+        <h4>{{ p.nombre }}</h4>
+
+        <p class="sub-info">
+          Equipos incluidos: {{ p.equipos.length }}
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- ==========================================================
+         COLUMNA CENTRAL — FORMULARIO DE NUEVO PACK
+    ========================================================== -->
+    <div class="columna-form" *ngIf="creandoPack">
+
+      <div class="formulario-reserva">
+        <h3 class="titulo-form">Crear Nuevo Pack</h3>
+
+        <!-- Nombre -->
+        <div class="form-grupo">
+          <label>Nombre del Pack</label>
+          <input type="text" [(ngModel)]="form.nombre" placeholder="Nombre del pack...">
+        </div>
+
+        <!-- Agregar equipos -->
+        <div class="form-grupo">
+          <label>Agregar equipo</label>
+
+          <div class="equipo-flex">
+            <select [(ngModel)]="equipoSeleccionado">
+              <option [ngValue]="null">Seleccionar equipo...</option>
+              <option *ngFor="let eq of equipos" [ngValue]="eq">
+                {{ eq.nombre }}
+              </option>
+            </select>
+
+            <button class="btn-agregar" (click)="agregarEquipo()">Agregar</button>
+          </div>
+
+          <!-- Lista equipos agregados -->
+          <div class="lista-equipos" *ngIf="form.equipos.length > 0">
+            <div class="item-equipo" *ngFor="let e of form.equipos; let i = index">
+              <span>{{ e.nombre }}</span>
+              <button class="btn-eliminar" (click)="eliminarEquipo(i)">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-guardar" (click)="crearPack()">Crear Pack</button>
+
+      </div>
+
+    </div>
+
+    <!-- ==========================================================
+         COLUMNA CENTRAL — DETALLE PACK SELECCIONADO
+    ========================================================== -->
+    <div class="columna-form" *ngIf="packSeleccionado && !creandoPack">
+
+      <div class="detalle-reserva-box">
+        <h3>Detalle del Pack</h3>
+
+        <p><strong>Nombre:</strong> {{ packSeleccionado.nombre }}</p>
+
+        <p><strong>Equipos incluidos ({{ packSeleccionado.equipos.length }}):</strong></p>
+
+        <ul class="lista-resumen-equipos" *ngIf="packSeleccionado.equipos.length > 0">
+          <li *ngFor="let e of packSeleccionado.equipos">
+            • {{ e.nombre }}
+          </li>
+        </ul>
+
+        <p *ngIf="packSeleccionado.equipos.length === 0" class="texto-vacio">
+          Ningún equipo incluido.
+        </p>
+
+        <button class="btn-cancelar" (click)="eliminarPack(packSeleccionado.id)">Eliminar Pack</button>
+      </div>
+
+    </div>
+
+    <!-- ==========================================================
+         COLUMNA DERECHA — RESUMEN DEL PACK
+    ========================================================== -->
+    <div class="columna-resumen" *ngIf="creandoPack">
+
+      <div class="resumen-box">
+        <h3>Resumen del Pack</h3>
+
+        <p><strong>Nombre:</strong> {{ form.nombre || '—' }}</p>
+
+        <p><strong>Equipos incluidos ({{ form.equipos.length }})</strong></p>
+
+        <ul class="lista-resumen-equipos" *ngIf="form.equipos.length > 0">
+          <li *ngFor="let eq of form.equipos">
+            • {{ eq.nombre }}
+          </li>
+        </ul>
+
+        <p *ngIf="form.equipos.length === 0" class="texto-vacio">
+          Ningún equipo seleccionado.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

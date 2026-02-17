@@ -1,3 +1,7 @@
+/* ======================================================
+   LOGIN — NUEVA PALETA VERDE + AZUL GRIS PROFESIONAL
+====================================================== */
+
 /* === CONTENEDOR PRINCIPAL === */
 .login-page {
   position: relative;
@@ -5,83 +9,59 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f7faff;
+  background-color: #E9EEF2; /* Fondo institucional suave */
   font-family: 'Inter', sans-serif;
   overflow: hidden;
 }
-.google-login-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
 
-  background: #ffffff;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
-
-  padding: 10px;
-  font-weight: 600;
-  font-size: 15px;
-  color: #333;
-  transition: all 0.2s ease-in-out;
-
-  cursor: pointer;
-}
-
-.google-login-btn:hover {
-  background: #f5f5f5;
-  border-color: #c7c7c7;
-}
-
-.google-login-btn img {
-  width: 22px;
-  height: 22px;
-}
-
-
-/* 🔹 Imagen de fondo tenue, más visible pero suave */
+/* === Imagen de fondo suave === */
 .login-page::before {
   content: "";
   position: absolute;
   inset: 0;
   background: url("../../../../assets/login.png") center/cover no-repeat;
-  filter: blur(4px) brightness(0.9) saturate(0.95); /* 🔹 Blur leve y color natural */
-  opacity: 0.55; /* 🔹 Más visible que antes, pero aún suave */
+  filter: blur(4px) brightness(0.85) saturate(0.9);
+  opacity: 0.45;
   z-index: 0;
-  transition: opacity 0.8s ease-in-out;
 }
 
-/* === CAJA DEL LOGIN === */
+/* ======================================================
+   TARJETA DE LOGIN
+====================================================== */
 .login-card {
   position: relative;
   z-index: 1;
-  background: #ffffff;
-  border: 1px solid #dbe5f1;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(75, 108, 183, 0.15);
+  background: #FFFFFF;
+  border: 1px solid #DDE3EA;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
   padding: 48px 40px;
   width: 100%;
   max-width: 480px;
   animation: fadeIn 0.4s ease-out;
 }
 
-/* === TITULOS === */
+/* ======================================================
+   TITULOS
+====================================================== */
 .login-card h1 {
-  color: #4b6cb7;
+  color: #3A506B; /* Azul gris elegante */
   font-size: 2rem;
   font-weight: 800;
-  margin-bottom: 8px;
   text-align: center;
+  margin-bottom: 8px;
 }
 
 .login-card .sub {
-  color: #6e7fa8;
+  color: #2E7D32; /* Verde institucional */
   text-align: center;
   margin-bottom: 28px;
   font-size: 1rem;
 }
 
-/* === CAMPOS === */
+/* ======================================================
+   CAMPOS DE FORMULARIO
+====================================================== */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -90,32 +70,35 @@
 
 .form-group label {
   font-weight: 600;
-  color: #4b6cb7;
+  color: #3A506B;
   margin-bottom: 6px;
 }
 
 .form-group input {
   padding: 12px 14px;
-  border: 1px solid #c9d8f0;
-  border-radius: 10px;
+  border: 1.5px solid #C8D3DD;
+  border-radius: 12px;
   font-size: 0.95rem;
+  color: #1E2A32;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-group input:focus {
-  border-color: #4b6cb7;
-  box-shadow: 0 0 0 3px rgba(75, 108, 183, 0.15);
+  border-color: #2E7D32;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.25);
   outline: none;
 }
 
-/* === BOTÓN === */
+/* ======================================================
+   BOTÓN LOGIN
+====================================================== */
 .btn-login {
   width: 100%;
-  background-color: #4b6cb7;
+  background-color: #2E7D32;
   color: white;
   font-weight: 700;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 14px 0;
   font-size: 1rem;
   cursor: pointer;
@@ -124,7 +107,7 @@
 }
 
 .btn-login:hover {
-  background-color: #39589a;
+  background-color: #3A506B;
   transform: translateY(-2px);
 }
 
@@ -132,14 +115,49 @@
   transform: translateY(0);
 }
 
-/* === ENLACE OLVIDÉ CONTRASEÑA === */
+/* ======================================================
+   BOTÓN LOGIN CON GOOGLE
+====================================================== */
+.google-login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background: #FFFFFF;
+  border: 1px solid #C8D3DD;
+  border-radius: 10px;
+
+  padding: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #1E2A32;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.google-login-btn:hover {
+  background: #F2F5F8;
+  border-color: #3A506B;
+}
+
+.google-login-btn img {
+  width: 22px;
+  height: 22px;
+}
+
+/* ======================================================
+   OLVIDÉ CONTRASEÑA
+====================================================== */
 .recuperar {
   text-align: center;
   margin-top: 18px;
 }
 
 .recuperar a {
-  color: #4b6cb7;
+  color: #2E7D32;
   text-decoration: none;
   font-weight: 600;
 }
@@ -148,7 +166,9 @@
   text-decoration: underline;
 }
 
-/* === ANIMACIÓN SUAVE === */
+/* ======================================================
+   ANIMACIÓN
+====================================================== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -160,7 +180,9 @@
   }
 }
 
-/* === RESPONSIVE === */
+/* ======================================================
+   RESPONSIVE
+====================================================== */
 @media (max-width: 600px) {
   .login-card {
     max-width: 90%;

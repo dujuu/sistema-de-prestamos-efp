@@ -7,22 +7,45 @@
     </button>
 
     <div class="nav-icons">
-      <i class="bi bi-house-door-fill" (click)="navegar('gestionar')" title="Inicio"></i>
-      <i class="bi bi-question-circle" title="Ayuda"></i>
+
+      <!-- Inicio -->
+      <i class="bi bi-house-door-fill"
+         (click)="navegarInterno('gestionar')"
+         title="Inicio">
+      </i>
+
+      <!-- 🔹 Nuevo: Preguntas Frecuentes (Admin) -->
+      <i class="bi bi-question-circle"
+         (click)="navegarInterno('preguntas-frecuentes')"
+         title="Preguntas frecuentes">
+      </i>
     </div>
 
+    <!-- MENU LATERAL -->
     <div class="menu-dropdown" *ngIf="menuAbierto">
-      <button (click)="navegar('gestionar')">Gestionar</button>
-      <button (click)="navegar('admin/solicitudes')">Solicitudes pendientes</button>
-      <button (click)="navegar('admin/solicitudes-finalizadas')">Solicitudes finalizadas</button>
-      <button (click)="navegar(['admin','reportes'])">Estadísticas</button>
+
+      <button (click)="navegarInterno('gestionar')">
+        Gestionar
+      </button>
+
+      <button (click)="navegarInterno('solicitudes')">
+        Solicitudes pendientes
+      </button>
+
+      <button (click)="navegarInterno('inventario')">
+        Inventario
+      </button>
+
+      <button (click)="navegarInterno('cuentas')">
+        Cuentas
+      </button>
+
     </div>
-    
 
   </div>
 
   <div class="nav-center">
-    <span class="brand">Registro Y Préstamo. Diseño Multimedia</span>
+    <span class="brand">Departamento de computación e informática</span>
   </div>
 
   <div class="nav-right">

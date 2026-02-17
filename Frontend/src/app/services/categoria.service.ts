@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 export class CategoriaService {
 
   private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl2 = 'http://127.0.0.1:9000/api';
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +20,11 @@ export class CategoriaService {
 
   getCategorias(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/categoria`, {
+      headers: this.getHeaders()
+    });
+  }
+    getCategoriass(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl2}/categoria`, {
       headers: this.getHeaders()
     });
   }

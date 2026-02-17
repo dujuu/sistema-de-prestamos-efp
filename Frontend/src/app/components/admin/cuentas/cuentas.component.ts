@@ -92,7 +92,7 @@ export class CuentasComponent implements OnInit {
    * @param page Número de página a cargar (por defecto 1)
    */
   cargarAlumnos(page: number = 1) {
-    this.usuariosService.obtenerUsuarios(page).subscribe({
+    this.usuariosService.obtenerUsuarioss(page).subscribe({
       next: (res) => {
         this.alumnos = res.data;
         this.currentPage = res.current_page;

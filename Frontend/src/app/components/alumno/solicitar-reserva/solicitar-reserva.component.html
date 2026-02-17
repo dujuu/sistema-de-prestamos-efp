@@ -5,7 +5,7 @@
     <p class="sub"></p>
 
     <!-- 1) Datos del alumno -->
-    <!--  BLOQUE DE DATOS DEL ALUMNO -->
+    <!-- 🟦 BLOQUE DE DATOS DEL ALUMNO -->
     <div class="card-datos">
       <h2>Datos del alumno</h2>
       <div class="grid-2">
@@ -31,18 +31,7 @@
 
 
 
-    <!-- 2) Tipo de solicitud -->
-    <div class="card">
-      <h2>Tipo de solicitud</h2>
-      <label class="radio">
-        <input type="radio" [value]="'DENTRO'" formControlName="tipo_solicitud" />
-        Dentro de la universidad
-      </label>
-      <label class="radio">
-        <input type="radio" [value]="'FUERA'" formControlName="tipo_solicitud" />
-        Fuera de la universidad
-      </label>
-    </div>
+
 
     <!-- 3) Asignatura o motivo -->
     <div class="card">
@@ -103,22 +92,14 @@
     <!-- 6) Bloques horarios (solo dentro) -->
     <div class="card" *ngIf="esDentro()">
       <h2>Bloques horarios</h2>
-
-      <div class="bloques-grid">
-        <label class="bloque-card" *ngFor="let b of bloques">
-          <input 
-            type="checkbox"
-            [checked]="form.get('bloques')?.value?.includes(b.id)"
-            (change)="onBloqueChange($event, b.id)"
-          />
-          <div class="bloque-info">
-            <span class="bloque-titulo">{{ b.texto.split('(')[0] }}</span>
-            <span class="bloque-hora">{{ b.texto.split('(')[1].replace(')', '') }}</span>
-          </div>
+      <div class="equipos-grid">
+        <label class="radio" *ngFor="let b of bloques">
+          <input type="checkbox" [checked]="form.get('bloques')?.value?.includes(b.id)"
+            (change)="onBloqueChange($event, b.id)" />
+          {{ b.texto }}
         </label>
       </div>
     </div>
-
 
     <!-- 7) Observación -->
     <div class="card">
@@ -133,35 +114,21 @@
     </div>
   </form>
 
-  <!--  RESUMEN (30%) -->
+  <!-- 🔹 RESUMEN (30%) -->
   <aside class="resumen">
     <h3>Resumen de solicitud</h3>
     <p class="resumen-sub"></p>
 
-    <!--  DETALLES PRINCIPALES -->
+    <!-- ✅ DETALLES PRINCIPALES -->
     <div class="detalle">
       <p><b>Alumno:</b> {{ resumen().usuario }}</p>
       <p><b>Tipo:</b> {{ resumen().tipo }}</p>
+      <p><b>Asignatura:</b> {{ form.get('asignatura')?.value || '—' }}</p>
       <p><b>Asignatura:</b> {{ asignaturaSeleccionada() }}</p>
-
-
-      <p>DEBUG valor asignatura: {{ form.get('asignatura')?.value }}</p>
-
-
-    
       
 
 
-      <!-- Mostrar dinámicamente según tipo -->
-      <ng-container *ngIf="resumen().tipo === 'FUERA'; else dentroBlock">
-        <p><b>Periodo:</b> {{ resumen().periodo }}</p>
-        <p><b>Bloques:</b> —</p>
-      </ng-container>
 
-      <ng-template #dentroBlock>
-        <p><b>Periodo:</b> —</p>
-        <p><b>Bloques:</b> {{ resumen().bloquesTxt || '—' }}</p>
-      </ng-template>
 
       <p><b>Observación:</b> {{ form.get('observacion')?.value || '—' }}</p>
     </div>

@@ -7,7 +7,7 @@ export class TipoEquipoService {
 
   private apiUrl = 'http://127.0.0.1:8000/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('token') ?? '';
@@ -29,36 +29,36 @@ export class TipoEquipoService {
   // ============================================================
   // CREAR NUEVO TIPO (modelo)
   // ============================================================
-crearTipo(data: any, imagen?: File): Observable<any> {
+  crearTipo(data: any, imagen?: File): Observable<any> {
 
-  const formData = new FormData();
+    const formData = new FormData();
 
-  formData.append('nombre', data.nombre);
-  formData.append('categoria_id', data.categoria_id);
+    formData.append('nombre', data.nombre);
+    formData.append('categoria_id', data.categoria_id);
 
-  if (imagen) formData.append('imagen', imagen);
+    if (imagen) formData.append('imagen', imagen);
 
-  return this.http.post(`${this.apiUrl}/tipoEquipo`, formData);
-}
+    return this.http.post(`${this.apiUrl}/tipoEquipo`, formData);
+  }
 
-// ============================================================
-// CATÁLOGO: tipo de equipos + stock
-// ============================================================
-getCatalogo(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}/catalogo-equipos`, {
-    headers: this.getHeaders()
-  });
-}
+  // ============================================================
+  // CATÁLOGO: tipo de equipos + stock
+  // ============================================================
+  getCatalogo(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/catalogo-equipos`, {
+      headers: this.getHeaders()
+    });
+  }
 
-// ============================================================
-// LISTAR EQUIPOS FÍSICOS DISPONIBLES POR TIPO
-// ============================================================
-getEquiposPorTipo(idTipo: number): Observable<any[]> {
-  return this.http.get<any[]>(
-    `${this.apiUrl}/tipoEquipo/${idTipo}/equipos-disponibles`,
-    { headers: this.getHeaders() }
-  );
-}
+  // ============================================================
+  // LISTAR EQUIPOS FÍSICOS DISPONIBLES POR TIPO
+  // ============================================================
+  getEquiposPorTipo(idTipo: number): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/tipoEquipo/${idTipo}/equipos-disponibles`,
+      { headers: this.getHeaders() }
+    );
+  }
 
   // ============================================================
   // ACTUALIZAR TIPO
@@ -78,5 +78,17 @@ getEquiposPorTipo(idTipo: number): Observable<any[]> {
     });
 
   }
-  
+
+
+
+  // ============================================================
+  // LISTAR PACKS
+  // ============================================================
+  getPacks(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/packs`, {
+      headers: this.getHeaders()
+    });
+  }
+
+
 }

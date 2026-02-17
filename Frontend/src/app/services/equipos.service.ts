@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 export class EquiposService {
 
   private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl2 = 'http://127.0.0.1:9000/api';
 
   constructor(private http: HttpClient) {}
   /**
@@ -75,7 +76,7 @@ export class EquiposService {
  * @returns Observable<any> Respuesta del servidor tras intentar crear el equipo.
  */
   crearEquipo(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/equipos`, data, {
+    return this.http.post(`${this.apiUrl2}/equipos`, data, {
       headers: this.getHeaders()
     });
   }
@@ -93,4 +94,9 @@ export class EquiposService {
       headers: this.getHeaders()
     });
   }
+
+  updateEquipo(id: number, data: any) {
+   return this.http.put(`${this.apiUrl}/equipos/${id}`, data);
+  }
+
 }

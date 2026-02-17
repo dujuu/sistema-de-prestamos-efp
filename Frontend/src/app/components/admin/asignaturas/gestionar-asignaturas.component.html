@@ -1,0 +1,226 @@
+<app-navbar-admin></app-navbar-admin>
+
+<div class="admin-container">
+  
+  <h2 class="titulo-pagina">Reservas de Asignaturas y Eventos</h2>
+
+  <div class="reservas-layout">
+
+    <!-- ==========================================================
+         LISTA DE RESERVAS (IZQUIERDA)
+    ========================================================== -->
+    <div class="columna-lista scroll-columna">
+
+      <div class="header-lista">
+        <h3>Reservas</h3>
+        <button class="btn-crear" (click)="nuevaReserva()">+ Crear nueva reserva</button>
+      </div>
+
+      <p *ngIf="reservas.length === 0" class="sin-reservas">No hay reservas creadas.</p>
+
+      <div
+        class="reserva-card"
+        *ngFor="let r of reservas"
+        (click)="seleccionar(r)"
+        [class.activa]="r === reservaSeleccionada"
+      >
+        <h4>{{ r.tipo | titlecase }}</h4>
+
+        <p class="sub-info">
+          {{ r.asignaturaNombre || r.eventoNombre }}
+        </p>
+
+        <p class="fecha">
+          🕒
+          <span *ngFor="let bl of r.bloques"> • {{ bl }} </span>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- ==========================================================
+         FORMULARIO DE CREACIÓN (CENTRO)
+    ========================================================== -->
+    <div class="columna-form" *ngIf="mostrarFormulario">
+
+      <div class="formulario-reserva">
+        <h3 class="titulo-form">Crear Nueva Reserva</h3>
+
+        <!-- Tipo -->
+        <div class="form-grupo">
+          <label>Tipo</label>
+          <select [(ngModel)]="form.tipo">
+            <option value="asignatura">Asignatura</option>
+            <option value="evento">Evento</option>
+          </select>
+        </div>
+
+        <!-- Asignatura -->
+        <div class="form-grupo" *ngIf="form.tipo === 'asignatura'">
+          <label>Asignatura</label>
+          <select [(ngModel)]="form.asignatura_id">
+            <option value="">Seleccionar...</option>
+            <option *ngFor="let a of asignaturas" [value]="a.id">
+              {{ a.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Evento escrito a mano -->
+        <div class="form-grupo" *ngIf="form.tipo === 'evento'">
+          <label>Nombre del Evento</label>
+          <input
+            type="text"
+            [(ngModel)]="form.evento_nombre"
+            placeholder="Nombre del evento..."
+          >
+        </div>
+
+        <!-- Profesor -->
+        <div class="form-grupo">
+          <label>Profesor a cargo</label>
+          <input type="text" [(ngModel)]="form.profesor">
+        </div>
+
+        <!-- Bloques -->
+        <div class="form-grupo">
+          <label>Bloques</label>
+
+          <div class="bloques-container">
+            <div
+              class="bloque-item"
+              *ngFor="let b of bloques"
+              (click)="toggleBloque(b)"
+              [class.activo]="form.bloques.includes(b.texto)"
+            >
+              <strong>{{ b.nombre }}</strong>
+              <span>{{ b.texto }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agregar Equipos -->
+        <div class="form-grupo">
+          <label>Agregar equipo</label>
+
+          <div class="equipo-flex">
+            <select [(ngModel)]="equipoSeleccionado">
+              <option [ngValue]="null">Seleccionar equipo...</option>
+              <option *ngFor="let eq of equipos" [ngValue]="eq">
+                {{ eq.nombre }}
+              </option>
+            </select>
+
+            <input
+              type="number"
+              min="1"
+              [(ngModel)]="cantidadSeleccionada"
+              class="input-cantidad"
+            >
+
+            <button class="btn-agregar" (click)="agregarEquipo()">Agregar</button>
+          </div>
+
+          <!-- Equipos agregados -->
+          <div class="lista-equipos" *ngIf="form.equipos.length > 0">
+            <div class="item-equipo" *ngFor="let e of form.equipos; let i = index">
+              <span>{{ e.nombre }} — <strong>Cant:</strong> {{ e.cantidad }}</span>
+              <button class="btn-eliminar" (click)="eliminarEquipo(i)">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Observación -->
+        <div class="form-grupo">
+          <label>Observación (opcional)</label>
+          <textarea rows="3" [(ngModel)]="form.observacion"></textarea>
+        </div>
+
+        <button class="btn-guardar" (click)="guardar()">Crear Reserva</button>
+
+      </div>
+    </div>
+
+    <!-- ==========================================================
+         DETALLE DE LA RESERVA (SELECCIONADA)
+    ========================================================== -->
+    <div class="columna-form" *ngIf="reservaSeleccionada && !mostrarFormulario">
+
+      <div class="detalle-reserva-box">
+        <h3>Detalle de la reserva</h3>
+
+        <p><strong>Tipo:</strong> {{ reservaSeleccionada.tipo | titlecase }}</p>
+
+        <p><strong>Asignatura / Evento:</strong>
+          {{ reservaSeleccionada.asignaturaNombre || reservaSeleccionada.eventoNombre }}
+        </p>
+
+        <p><strong>Profesor:</strong> {{ reservaSeleccionada.profesor }}</p>
+
+        <p><strong>Bloques seleccionados:</strong>
+          <span *ngFor="let bl of reservaSeleccionada.bloques">• {{ bl }} </span>
+        </p>
+
+        <p><strong>Equipos solicitados ({{ reservaSeleccionada.equipos.length }})</strong></p>
+
+        <ul class="lista-resumen-equipos" *ngIf="reservaSeleccionada.equipos.length > 0">
+          <li *ngFor="let eq of reservaSeleccionada.equipos">
+            • {{ eq.nombre }} ({{ eq.cantidad }})
+          </li>
+        </ul>
+
+        <p *ngIf="reservaSeleccionada.equipos.length === 0" class="texto-vacio">
+          Sin equipos asociados.
+        </p>
+
+        <p><strong>Observación:</strong> {{ reservaSeleccionada.observacion || '—' }}</p>
+
+        <!-- BOTÓN DE CANCELAR RESERVA -->
+        <button class="btn-cancelar" (click)="cancelarReserva()">
+          Cancelar reserva
+        </button>
+
+      </div>
+    </div>
+
+    <!-- ==========================================================
+         RESUMEN AL CREAR (DERECHA)
+    ========================================================== -->
+    <div class="columna-resumen" *ngIf="mostrarFormulario">
+
+      <div class="resumen-box">
+        <h3>Resumen de reserva</h3>
+
+        <p><strong>Profesor:</strong> {{ form.profesor || '—' }}</p>
+
+        <p><strong>Tipo:</strong> {{ form.tipo | titlecase }}</p>
+
+        <p><strong>Asignatura / Evento:</strong>
+          {{ getNombreAsignaturaEvento() }}
+        </p>
+
+        <p><strong>Bloques seleccionados:</strong>
+          <span *ngIf="form.bloques.length === 0">—</span>
+          <span *ngFor="let bl of form.bloques">• {{ bl }} </span>
+        </p>
+
+        <p><strong>Equipos seleccionados ({{ form.equipos.length }})</strong></p>
+
+        <ul class="lista-resumen-equipos" *ngIf="form.equipos.length > 0">
+          <li *ngFor="let eq of form.equipos">
+            • {{ eq.nombre }} ({{ eq.cantidad }})
+          </li>
+        </ul>
+
+        <p *ngIf="form.equipos.length === 0" class="texto-vacio">
+          Ningún equipo seleccionado.
+        </p>
+
+        <p><strong>Observación:</strong> {{ form.observacion || '—' }}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
